@@ -1,2 +1,0 @@
-# blogPHP
-blog php openclassroom
