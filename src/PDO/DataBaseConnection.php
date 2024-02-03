@@ -5,15 +5,18 @@ namespace App\PDO;
 use Exception;
 use PDO;
 
+require_once('vendor/autoload.php');
+
 class DataBaseConnection
 {
-    private function connectToDataBase()
+    private static function connectToDataBase()
     {
         try {
             return new PDO(
-                'mysql:host=localhost;dbname=blogphp;charset=utf8',
-                'root',
-                ''
+                'mysql:host=' . $_ENV["DB_HOST"] . ';dbname=' . $_ENV["DB_NAME"] . ';charset=utf8',
+                $_ENV["DB_USER"],
+                $_ENV["DB_PASSWORD"],
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ]
             );
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
@@ -22,9 +25,13 @@ class DataBaseConnection
 
     public function getAllUsers()
     {
-        $dataBase = $this->connectToDataBase();
-        $request = $dataBase->prepare('SELECT * FROM user');
-        $request->execute();
+        try {
+            $dataBase = $this->connectToDataBase();
+            $request = $dataBase->prepare('SELECT * FROM user');
+            $request->execute();
+        } catch (Exception $e) {
+            return $requestError = $e->getMessage();
+        }
         return $request->fetchAll();
     }
 }
