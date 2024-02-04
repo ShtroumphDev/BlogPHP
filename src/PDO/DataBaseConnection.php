@@ -9,7 +9,7 @@ require_once('vendor/autoload.php');
 
 class DataBaseConnection
 {
-    private static function connectToDataBase()
+    public function connectToDataBase()
     {
         try {
             return new PDO(
@@ -21,17 +21,5 @@ class DataBaseConnection
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
-    }
-
-    public function getAllUsers()
-    {
-        try {
-            $dataBase = $this->connectToDataBase();
-            $request = $dataBase->prepare('SELECT * FROM user');
-            $request->execute();
-        } catch (Exception $e) {
-            return $requestError = $e->getMessage();
-        }
-        return $request->fetchAll();
     }
 }
