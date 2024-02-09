@@ -1,9 +1,13 @@
 <?php
+require_once('src\PDO\DataBaseConnection.php');
+
+use App\PDO\DataBaseConnection;
+use Dotenv\Dotenv;
 
 session_start();
-var_dump($_GET);
-$request_uri = $_SERVER['REQUEST_URI'];
-var_dump($request_uri);
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 if (isset($_GET['page']) && $_GET['page'] !== '') {
     if (file_exists('src\\templates\\' . $_GET['page'] . '.html')) {
