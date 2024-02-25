@@ -4,11 +4,16 @@ namespace App\Entity\Abstracts;
 
 abstract class AbstractEntity
 {
+
+
     abstract public function getId(): ?int;
+
 
     abstract public function getDataBaseTableName(): string;
 
+
     abstract protected function getEntityProperties(): array;
+
 
     public function getOrderedProperties()
     {
