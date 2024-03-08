@@ -2,114 +2,131 @@
 
 namespace App\Repository\Abstracts;
 
+use App\Entity\Abstracts\Entity;
 use App\PDO\DataBaseConnection;
 use Exception;
 use PDO;
 
 abstract class AbstractRepository
 {
-    public function find(int $id) //: ?AbstractEntity
-    {
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
+	public function find(int $id): ?Entity
+	{
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
 
-        $databaseName = $this->getTableName();
-        $sqlQuery = "SELECT * FROM {$databaseName} WHERE id = :id";
+		$databaseName = $this->getTableName();
+		$sqlQuery     = "SELECT * FROM {$databaseName} WHERE id = :id";
 
-        $query = $dataBase->prepare($sqlQuery);
-        $query->bindValue('id', $id, PDO::PARAM_INT);
-        $query->execute();
+		$query = $dataBase->prepare($sqlQuery);
+		$query->bindValue('id', $id, PDO::PARAM_INT);
+		$query->execute();
 
-        $query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
+		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
-        return $query->fetch();
-    }
+		if ($query->fetch() === false) {
+			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
+		}
 
-    public function findOneBy(array $queryParams) //: ?AbstractEntity
-    {
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
+		return $query->fetch();
+	}
 
-        $sqlQuery = $this->getSqlQuery($queryParams);
+	public function findOneBy(array $queryParams): ?Entity
+	{
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
 
-        $query = $dataBase->prepare($sqlQuery);
+		$sqlQuery = $this->getSqlQuery($queryParams);
 
-        foreach ($queryParams as $property => $value) {
-            $query->bindValue($property, $value);
-        }
-        $query->execute();
+		$query = $dataBase->prepare($sqlQuery);
 
-        $query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
+		foreach ($queryParams as $property => $value) {
+			$query->bindValue($property, $value);
+		}
+		$query->execute();
 
-        return $query->fetch();
-    }
+		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
-    public function findBy(array $queryParams): ?array
-    {
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
+		if ($query->fetch() === false) {
+			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
+		}
 
-        $sqlQuery = $this->getSqlQuery($queryParams);
+		return $query->fetch();
+	}
 
-        $query = $dataBase->prepare($sqlQuery);
+	public function findBy(array $queryParams): ?array
+	{
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
 
-        foreach ($queryParams as $property => $value) {
-            $query->bindValue($property, $value);
-        }
+		$sqlQuery = $this->getSqlQuery($queryParams);
 
-        $query->execute();
+		$query = $dataBase->prepare($sqlQuery);
 
-        return $query->fetchAll();
-    }
+		foreach ($queryParams as $property => $value) {
+			$query->bindValue($property, $value);
+		}
 
-    public function findAll(): ?array
-    {
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
+		$query->execute();
 
-        $databaseName = $this->getTableName();
-        $sqlQuery = "SELECT * FROM {$databaseName}";
+		if ($query->fetchAll() === false) {
+			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
+		}
 
-        $query = $dataBase->prepare($sqlQuery);
+		return $query->fetchAll();
+	}
 
-        $query->execute();
+	public function findAll(): ?array
+	{
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
 
-        return $query->fetchAll();
-    }
+		$databaseName = $this->getTableName();
+		$sqlQuery     = "SELECT * FROM {$databaseName}";
 
-    abstract protected function getTableName(): string;
+		$query = $dataBase->prepare($sqlQuery);
 
-    abstract protected function getClassName(): string;
+		$query->execute();
 
-    private function getSqlQuery(array $queryParams): string
-    {
-        if (count($queryParams) === 0) {
-            throw new Exception('you must provide an array of parameters to the repository method');
-        }
+		if ($query->fetchAll() === false) {
+			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
+		}
 
-        $properties = array_keys($queryParams);
-        $values = array_values($queryParams);
+		return $query->fetchAll();
+	}
 
-        if (count($properties) !== count($values)) {
-            throw new Exception('mismatching number of properties and values in method argument');
-        }
+	abstract protected function getTableName(): string;
 
-        $stringProperties = implode(', ', $properties);
-        $stringValues = '';
+	abstract protected function getClassName(): string;
 
-        $i = 0;
-        foreach ($properties as $property) {
-            if ($i < count($properties) - 1) {
-                $stringValues .= ':' . $property . ', ';
-            } else {
-                $stringValues .= ':' . $property;
-            }
-            $i++;
-        }
+	private function getSqlQuery(array $queryParams): string
+	{
+		if (count($queryParams) === 0) {
+			throw new Exception('you must provide an array of parameters to the repository method');
+		}
 
-        $databaseName = $this->getTableName();
-        $sqlQuery = "SELECT * FROM {$databaseName} WHERE ({$stringProperties}) = ({$stringValues})";
+		$properties = array_keys($queryParams);
+		$values     = array_values($queryParams);
 
-        return $sqlQuery;
-    }
+		if (count($properties) !== count($values)) {
+			throw new Exception('mismatching number of properties and values in method argument');
+		}
+
+		$stringProperties = implode(', ', $properties);
+		$stringValues     = '';
+
+		$i = 0;
+		foreach ($properties as $property) {
+			if ($i < count($properties) - 1) {
+				$stringValues .= ':' . $property . ', ';
+			} else {
+				$stringValues .= ':' . $property;
+			}
+			++$i;
+		}
+
+		$databaseName = $this->getTableName();
+		$sqlQuery     = "SELECT * FROM {$databaseName} WHERE ({$stringProperties}) = ({$stringValues})";
+
+		return $sqlQuery;
+	}
 }

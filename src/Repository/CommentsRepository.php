@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
+use App\Entity\CommentEntity;
 use App\Repository\Abstracts\AbstractRepository;
 
 class CommentsRepository extends AbstractRepository
 {
-    private $referenceEntity;
+	private $referenceEntity;
 
-    public function __construct()
-    {
-        //! apres merge de la PR des entitees dans main, adapté ici le nom avec la bonne classe
-        // $this->referenceEntity = new COMMEntENTITY;
-    }
+	public function __construct()
+	{
+		$this->referenceEntity = new CommentEntity();
+	}
 
-    protected function getTableName(): string
-    {
-        return $this->referenceEntity->getDataBaseTableName();
-    }
+	protected function getTableName(): string
+	{
+		return $this->referenceEntity->getDataBaseTableName();
+	}
 
-    protected function getClassName(): string
-    {
-        return get_class($this->referenceEntity);
-    }
+	protected function getClassName(): string
+	{
+		return get_class($this->referenceEntity);
+	}
 }

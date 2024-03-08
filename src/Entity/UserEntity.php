@@ -2,119 +2,125 @@
 
 namespace App\Entity;
 
-use App\Entity\Abstracts\AbstractEntity;
+use App\Entity\Abstracts\Entity;
+use App\Repository\UserRepository;
 
-class UserEntity extends AbstractEntity
+class UserEntity extends Entity
 {
-    private ?int $id = null;
-    private ?string $email = null;
-    private ?string $pseudo = null;
-    private ?string $password = null;
-    private ?string $logo = null;
-    private ?string $firstName = null;
-    private ?string $lastName = null;
-    private ?string $role = null;
+	private ?int $id           = null;
+	private ?string $email     = null;
+	private ?string $pseudo    = null;
+	private ?string $password  = null;
+	private ?string $logo      = null;
+	private ?string $firstname = null;
+	private ?string $lastname  = null;
+	private ?string $role      = null;
 
-    public function __construct()
-    {
-    }
+	public function __construct()
+	{
+	}
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+	public function getId(): ?int
+	{
+		return $this->id;
+	}
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+	public function getEmail(): ?string
+	{
+		return $this->email;
+	}
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+	public function setEmail(string $email): self
+	{
+		$this->email = $email;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
+	public function getPseudo(): ?string
+	{
+		return $this->pseudo;
+	}
 
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
+	public function setPseudo(string $pseudo): self
+	{
+		$this->pseudo = $pseudo;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
+	public function getPassword(): ?string
+	{
+		return $this->password;
+	}
 
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
+	public function setPassword(string $password): self
+	{
+		$this->password = $password;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
+	public function getLogo(): ?string
+	{
+		return $this->logo;
+	}
 
-    public function setLogo(string $logo): self
-    {
-        $this->logo = $logo;
+	public function setLogo(string $logo): self
+	{
+		$this->logo = $logo;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
+	public function getfirstname(): ?string
+	{
+		return $this->firstname;
+	}
 
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
+	public function setfirstname(string $firstname): self
+	{
+		$this->firstname = $firstname;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
+	public function getlastname(): ?string
+	{
+		return $this->lastname;
+	}
 
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
+	public function setlastname(string $lastname): self
+	{
+		$this->lastname = $lastname;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
+	public function getRole(): ?string
+	{
+		return $this->role;
+	}
 
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
+	public function setRole(string $role): self
+	{
+		$this->role = $role;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    protected function getEntityProperties(): array
-    {
-        return get_object_vars($this);
-    }
+	protected function getEntityProperties(): array
+	{
+		return get_object_vars($this);
+	}
 
-    public function getDataBaseTableName(): string
-    {
-        return 'user';
-    }
+	public function getDataBaseTableName(): string
+	{
+		return 'user';
+	}
+
+	public function getRepository(): UserRepository
+	{
+		return new UserRepository();
+	}
 }
