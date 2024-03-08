@@ -2,95 +2,99 @@
 
 namespace App\Entity;
 
-use App\Entity\Abstracts\AbstractEntity;
+use App\Entity\Abstracts\Entity;
 use Exception;
 use App\PDO\DataBaseConnection;
 use PDO;
 
 class EntityManager
 {
-    private array $persistedRequests;
+	private array $persistedRequests;
 
-    public function persist(AbstractEntity $entity)
-    {
-        $entityProperties = $entity->getOrderedProperties();
-        $this->persistedRequests[] = $entityProperties;
-    }
+	public function persist(Entity $entity)
+	{
+		$entityProperties          = $entity->getOrderedProperties();
+		$this->persistedRequests[] = $entityProperties;
+	}
 
-    public function flush()
-    {
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
-        $dataBase->beginTransaction();
+	public function flush()
+	{
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
+		$dataBase->beginTransaction();
 
-        foreach ($this->persistedRequests as $request) {
-            $mode = $request['mode'];
-            $sqlQuery = $this->getSqlQuery($request, $mode);
+		foreach ($this->persistedRequests as $request) {
+			$mode     = $request['mode'];
+			$sqlQuery = $this->getSqlQuery($request, $mode);
 
-            if ($sqlQuery === null) {
-                throw new Exception('une erreur dans l\'enregristrement est survenue');
-            }
-            $query = $dataBase->prepare($sqlQuery);
+			if ($sqlQuery === null) {
+				throw new Exception('une erreur dans l\'enregristrement est survenue');
+			}
+			$query = $dataBase->prepare($sqlQuery);
 
-            $query->execute($request['values']);
-        }
+			$query->execute($request['values']);
+		}
 
-        $dataBase->commit();
-    }
+		$dataBase->commit();
+	}
 
-    public function removeFromDatabase(AbstractEntity $entity)
-    {
-        //! if $entity->getId() === null ou que l'id n'existe pas dans la bdd, throw exception;
-        $dataBaseConnection = new DataBaseConnection;
-        $dataBase = $dataBaseConnection->connectToDataBase();
+	public function removeFromDatabase(Entity $entity)
+	{
+		if ($entity->getId() === null || empty($entity->getRepository()->find($entity->getId()))) {
+			throw new Exception("Cette donnée ne peut pas être supprimé car elle n'est pas présente dans la base de donnée");
+		}
 
-        $sqlQuery = "DELETE FROM {$entity->getDataBaseTableName()} WHERE id = :id";
-        $query = $dataBase->prepare($sqlQuery);
-        $query->bindValue('id', $entity->getId(), PDO::PARAM_INT);
+		$dataBaseConnection = new DataBaseConnection();
+		$dataBase           = $dataBaseConnection->connectToDataBase();
 
-        $query->execute();
-    }
+		$sqlQuery = "DELETE FROM {$entity->getDataBaseTableName()} WHERE id = :id";
+		$query    = $dataBase->prepare($sqlQuery);
+		$query->bindValue('id', $entity->getId(), PDO::PARAM_INT);
 
-    private function getSqlQuery(array $request, string $mode)
-    {
-        if (count($request) === 0) {
-            return null;
-        }
+		$query->execute();
+	}
 
-        if ($mode === 'insert') {
-            $columns = implode(', ', $request['properties']);
+	private function getSqlQuery(array $request, string $mode)
+	{
+		if (count($request) === 0) {
+			return null;
+		}
 
-            $values = 'NULL, ';
-            $i = 0;
-            foreach ($request['properties'] as $property) {
-                if ($property === 'id') {
-                    $i++;
-                    continue;
-                }
-                if ($i < count($request['properties']) - 1) {
-                    $values .= ':' . $property . ', ';
-                } else {
-                    $values .= ':' . $property;
-                }
-                $i++;
-            }
+		if ($mode === 'insert') {
+			$columns = implode(', ', $request['properties']);
 
-            $sqlQuery = "INSERT INTO {$request['tableName']} ($columns) VALUES ($values)";
-        } else {
-            $updatedColumn = '';
-            $i = 0;
-            foreach ($request['properties'] as $property) {
-                if ($i < count($request['properties']) - 1) {
-                    $updatedColumn .= $property . '= :' . $property . ',';
-                } else {
-                    $updatedColumn .= $property . '= :' . $property;
-                }
-                $i++;
-            }
+			$values = 'NULL, ';
+			$i      = 0;
+			foreach ($request['properties'] as $property) {
+				if ($property === 'id') {
+					++$i;
 
-            $sqlQuery = "UPDATE {$request['tableName']} SET $updatedColumn WHERE id = :id";
-        }
+					continue;
+				}
+				if ($i < count($request['properties']) - 1) {
+					$values .= ':' . $property . ', ';
+				} else {
+					$values .= ':' . $property;
+				}
+				++$i;
+			}
 
-        return $sqlQuery;
-    }
+			$sqlQuery = "INSERT INTO {$request['tableName']} ($columns) VALUES ($values)";
+		} else {
+			$updatedColumn = '';
+			$i             = 0;
+			foreach ($request['properties'] as $property) {
+				if ($i < count($request['properties']) - 1) {
+					$updatedColumn .= $property . '= :' . $property . ',';
+				} else {
+					$updatedColumn .= $property . '= :' . $property;
+				}
+				++$i;
+			}
+
+			$sqlQuery = "UPDATE {$request['tableName']} SET $updatedColumn WHERE id = :id";
+		}
+
+		return $sqlQuery;
+	}
 }
