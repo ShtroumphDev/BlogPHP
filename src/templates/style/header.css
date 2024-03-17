@@ -1,0 +1,30 @@
+.headerWrapper {
+  background-image: url("../../Ressources/header.jpg");
+  height: 200px;
+  background-size: 100% 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.headerWrapper .welcomeLogo {
+  width: 200px;
+  height: 200px;
+}
+.headerWrapper .presentation {
+  padding-top: 20px;
+}
+.headerWrapper .presentation p {
+  color: rgb(226, 226, 226);
+}
+.headerWrapper .presentation .catchPhrase {
+  max-width: 50%;
+  font-style: italic;
+}
+.headerWrapper .presentation button {
+  color: white;
+  background-color: #24aed0;
+  border-color: white;
+}
+.headerWrapper .presentation button:hover {
+  background-color: #1b6a7e;
+}/*# sourceMappingURL=header.css.map */

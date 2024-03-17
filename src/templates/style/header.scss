@@ -1,0 +1,37 @@
+.headerWrapper {
+    background-image: url('../../Ressources/header.jpg');
+    height: 200px;
+    background-size: 100% 200px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .welcomeLogo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .presentation {
+        padding-top: 20px;
+
+        p {
+            color: rgb(226, 226, 226);
+        }
+
+        .catchPhrase {
+            max-width: 50%;
+            font-style: italic;
+        }
+
+        button {
+            color: white;
+            background-color: #24aed0;
+            border-color: white;
+
+            &:hover {
+                background-color: #1b6a7e;
+            }
+        }
+    }
+}

@@ -16,5 +16,5 @@ if (isset($_GET['page']) && $_GET['page'] !== '') {
 		require_once 'src\\templates\Error404.html';
 	}
 } else {
-	require_once 'src\\templates\HomePage.html';
+	require_once 'src\\templates\MainContainer.html';
 }
