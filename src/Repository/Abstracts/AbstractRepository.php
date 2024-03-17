@@ -6,10 +6,11 @@ use App\Entity\Abstracts\Entity;
 use App\PDO\DataBaseConnection;
 use Exception;
 use PDO;
+use stdClass;
 
 abstract class AbstractRepository
 {
-	public function find(int $id): ?Entity
+	public function find(int $id): ?stdClass
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -21,16 +22,17 @@ abstract class AbstractRepository
 		$query->bindValue('id', $id, PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
+		$query->setFetchMode(PDO::FETCH_OBJ);
 
-		if ($query->fetch() === false) {
+		$content = $query->fetch();
+		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}
 
-		return $query->fetch();
+		return $content;
 	}
 
-	public function findOneBy(array $queryParams): ?Entity
+	public function findOneBy(array $queryParams): ?stdClass
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -44,13 +46,14 @@ abstract class AbstractRepository
 		}
 		$query->execute();
 
-		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
+		$query->setFetchMode(PDO::FETCH_OBJ);
 
-		if ($query->fetch() === false) {
+		$content = $query->fetch();
+		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}
 
-		return $query->fetch();
+		return $content;
 	}
 
 	public function findBy(array $queryParams): ?array
@@ -68,11 +71,12 @@ abstract class AbstractRepository
 
 		$query->execute();
 
-		if ($query->fetchAll() === false) {
+		$content = $query->fetchAll();
+		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}
 
-		return $query->fetchAll();
+		return $content;
 	}
 
 	public function findAll(): ?array
@@ -87,11 +91,12 @@ abstract class AbstractRepository
 
 		$query->execute();
 
-		if ($query->fetchAll() === false) {
+		$content = $query->fetchAll();
+		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}
 
-		return $query->fetchAll();
+		return $content;
 	}
 
 	abstract protected function getTableName(): string;
