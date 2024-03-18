@@ -1,37 +1,26 @@
-.headerWrapper {
-    background-image: url('../../Ressources/header.jpg');
-    height: 200px;
-    background-size: 100% 200px;
+header {
+    height: 168px;
+    position: absolute;
+    margin: 12px;
+    top: 56px;
+    width: calc(100% - 24px);
+    background-color: #23283b;
 
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-
-    .welcomeLogo {
-        width: 200px;
-        height: 200px;
-    }
-
-    .presentation {
-        padding-top: 20px;
+    .imgAndText {
+        .welcomeLogoSmall {
+            width: 65px;
+            height: 65px;
+            float: left;
+        }
 
         p {
             color: rgb(226, 226, 226);
+            margin: 6px;
         }
 
-        .catchPhrase {
-            max-width: 50%;
-            font-style: italic;
-        }
-
-        button {
+        hr {
+            width: 50%;
             color: white;
-            background-color: #24aed0;
-            border-color: white;
-
-            &:hover {
-                background-color: #1b6a7e;
-            }
         }
     }
 }
