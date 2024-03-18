@@ -1,8 +1,6 @@
 header {
     height: 168px;
-    position: absolute;
     margin: 12px;
-    top: 56px;
     width: calc(100% - 24px);
     background-color: #23283b;
 
@@ -21,6 +19,23 @@ header {
         hr {
             width: 50%;
             color: white;
+        }
+    }
+
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 12px 12px 12px;
+
+    button {
+        color: #23283b;
+        border-color: #23283b;
+
+        &:hover {
+            background-color: #4c5781;
+            border-color: whitesmoke;
         }
     }
 }
