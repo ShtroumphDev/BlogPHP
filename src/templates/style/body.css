@@ -1,4 +1,7 @@
 body {
   height: 100vh;
   width: 100vw;
+}
+body .content {
+  padding: 12px;
 }/*# sourceMappingURL=body.css.map */

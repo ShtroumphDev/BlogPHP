@@ -1,0 +1,20 @@
+h4 {
+  padding: 0 12px 12px 12px !important;
+}
+
+.cards-wrapper {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.cards-wrapper .articleCards {
+  max-width: 90%;
+}
+.cards-wrapper .articleCards .col {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.cards-wrapper .articleCards img {
+  max-width: 350px;
+  height: auto;
+}/*# sourceMappingURL=homeContent.css.map */
