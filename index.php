@@ -10,11 +10,11 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 if (isset($_GET['page']) && $_GET['page'] !== '') {
-	if (file_exists('src\\templates\\' . $_GET['page'] . '.html')) {
-		require_once 'src\\templates\\' . $_GET['page'] . '.html';
+	if (file_exists('src\\Templates\\' . $_GET['page'] . '.html')) {
+		require_once 'src\\Templates\\' . $_GET['page'] . '.html';
 	} else {
-		require_once 'src\\templates\Error404.html';
+		require_once 'src\\Templates\Error404.html';
 	}
 } else {
-	require_once 'src\\templates\MainContainer.html';
+	require_once 'src\\Templates\MainContainer.html';
 }
