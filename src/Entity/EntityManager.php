@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Abstracts\Entity;
 use Exception;
 use App\PDO\DataBaseConnection;
+use DateTime;
 use PDO;
 
 class EntityManager
@@ -32,10 +33,17 @@ class EntityManager
 			}
 			$query = $dataBase->prepare($sqlQuery);
 
+			$this->formatRequest($request['values']);
+
 			$query->execute($request['values']);
 		}
 
-		$dataBase->commit();
+		$error = $dataBase->commit();
+
+		if (!$error) {
+			$dataBase->rollBack();
+			throw new Exception('une erreur est survenue lors de l\'enregistrement en base de donnée');
+		}
 	}
 
 	public function removeFromDatabase(Entity $entity)
@@ -96,5 +104,16 @@ class EntityManager
 		}
 
 		return $sqlQuery;
+	}
+
+	private function formatRequest(array &$propertiesValues)
+	{
+		foreach ($propertiesValues as $property => $value) {
+			if ($value instanceof DateTime) {
+				$propertiesValues[$property] = $value->format('Y-m-d');
+			}
+		}
+
+		return $propertiesValues;
 	}
 }

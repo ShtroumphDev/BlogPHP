@@ -2,7 +2,6 @@
 
 namespace App\Repository\Abstracts;
 
-use App\Entity\Abstracts\Entity;
 use App\PDO\DataBaseConnection;
 use Exception;
 use PDO;

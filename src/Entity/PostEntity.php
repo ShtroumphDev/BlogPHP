@@ -8,14 +8,14 @@ use App\Repository\PostRepository;
 
 class PostEntity extends Entity
 {
-	private int $id;
+	private ?int $id = null;
 	private string $title;
 	private string $chapo;
 	private string $content;
-	private DateTime $createAt;
-	private DateTime $updatedAt;
-	private int $categoryId;
-	private int $userId;
+	private DateTime $created_at;
+	private DateTime $updated_at;
+	private int $category_id;
+	private int $user_id;
 
 	public function __construct()
 	{
@@ -62,50 +62,50 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getCreateAt(): ?DateTime
+	public function getCreatedAt(): ?DateTime
 	{
-		return $this->createAt;
+		return $this->created_at;
 	}
 
-	public function setCreateAt(DateTime $createAt): self
+	public function setCreatedAt(DateTime $created_at): self
 	{
-		$this->createAt = $createAt;
+		$this->created_at = $created_at;
 
 		return $this;
 	}
 
 	public function getUpdatedAt(): ?DateTime
 	{
-		return $this->updatedAt;
+		return $this->updated_at;
 	}
 
-	public function setUpdatedAt(DateTime $updatedAt): self
+	public function setUpdatedAt(DateTime $updated_at): self
 	{
-		$this->updatedAt = $updatedAt;
+		$this->updated_at = $updated_at;
 
 		return $this;
 	}
 
 	public function getCategory(): ?int
 	{
-		return $this->categoryId;
+		return $this->category_id;
 	}
 
-	public function setCategory(int $categoryId): self
+	public function setCategory(int $category_id): self
 	{
-		$this->categoryId = $categoryId;
+		$this->category_id = $category_id;
 
 		return $this;
 	}
 
 	public function getUserId(): ?int
 	{
-		return $this->userId;
+		return $this->user_id;
 	}
 
-	public function setUserId(int $userId): self
+	public function setUserId(int $user_id): self
 	{
-		$this->userId = $userId;
+		$this->user_id = $user_id;
 
 		return $this;
 	}
