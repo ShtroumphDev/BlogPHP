@@ -14,10 +14,10 @@ $dotenv->load();
 
 $em   = new EntityManager();
 $repo = new PostRepository();
-$post = $repo->find(8);
+$post = $repo->getHomePagePost();
 var_dump($post);
 
-$test = new PostEntity();
+/* $test = new PostEntity();
 $test->setTitle('title');
 $test->setChapo('chapo');
 $test->setContent('content');
@@ -27,7 +27,7 @@ $test->setCategory(5);
 $test->setUserId(8);
 
 $em->persist($test);
-$em->flush();
+$em->flush(); */
 
 if (isset($_GET['page']) && $_GET['page'] !== '') {
 	if (file_exists('src\\Templates\\' . $_GET['page'] . '.html')) {
