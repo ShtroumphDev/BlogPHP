@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use DateTime;
 use App\Entity\Abstracts\Entity;
 use App\Repository\PostRepository;
+use DateTime;
 
 class PostEntity extends Entity
 {
-	private ?int $id = null;
-	private string $title;
-	private string $chapo;
-	private string $content;
-	private DateTime $created_at;
-	private DateTime $updated_at;
-	private int $category_id;
-	private int $user_id;
+	private ?int $id                                    = null;
+	private ?string $title                              = null;
+	private ?string $chapo                              = null;
+	private ?string $content                            = null;
+	private null|string|DateTime $created_at            = null;
+	private null|string|DateTime $updated_at            = null;
+	private ?int $category_id                           = null;
+	private ?int $user_id                               = null;
 
 	public function __construct()
 	{
@@ -24,6 +24,13 @@ class PostEntity extends Entity
 	public function getId(): ?int
 	{
 		return $this->id;
+	}
+
+	public function setId(int $id): self
+	{
+		$this->id = $id;
+
+		return $this;
 	}
 
 	public function getTitle(): ?string
@@ -67,7 +74,7 @@ class PostEntity extends Entity
 		return $this->created_at;
 	}
 
-	public function setCreatedAt(DateTime $created_at): self
+	public function setCreatedAt($created_at): self
 	{
 		$this->created_at = $created_at;
 
@@ -79,7 +86,7 @@ class PostEntity extends Entity
 		return $this->updated_at;
 	}
 
-	public function setUpdatedAt(DateTime $updated_at): self
+	public function setUpdatedAt($updated_at): self
 	{
 		$this->updated_at = $updated_at;
 

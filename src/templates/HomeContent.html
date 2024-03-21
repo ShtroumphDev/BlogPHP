@@ -1,13 +1,25 @@
 <h4 class="text-center h4">Voici les derniers articles paru sur notre blog</h4>
 <div class="cards-wrapper">
   <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-3 articleCards">
+    <?php foreach ($homePagePosts as $post) { ?>
     <div class="col">
       <div class="card h-100 text-center w-33">
-        <img
-          src="src/Ressources/logo.png"
-          class="card-img-top"
-          alt="..."
-        />
+        //!mettre l'url de l'image quand se sera dispo
+        <img src="src/Ressources/logo.png" class="card-img-top" alt="imageArticle" />
+        <div class="card-body">
+          <h5 class="card-title">
+            <?= htmlspecialchars($post->title); ?></h5>
+          <p class="card-text">
+            This is a longer card with supporting text below as a natural lead-in to additional
+            content. This content is a little bit longer.
+          </p>
+        </div>
+      </div>
+    </div>
+    <?php } ?>
+    <div class="col">
+      <div class="card h-100 text-center w-33">
+        <img src="src/Ressources/logo.png" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Card title</h5>
           <p class="card-text">
@@ -19,27 +31,7 @@
     </div>
     <div class="col">
       <div class="card h-100 text-center w-33">
-        <img
-          src="src/Ressources/logo.png"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural lead-in to additional
-            content. This content is a little bit longer.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100 text-center w-33">
-        <img
-          src="src/Ressources/logo.png"
-          class="card-img-top"
-          alt="..."
-        />
+        <img src="src/Ressources/logo.png" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Card title</h5>
           <p class="card-text">

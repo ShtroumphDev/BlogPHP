@@ -2,6 +2,7 @@
 
 require_once 'src\PDO\DataBaseConnection.php';
 
+use App\Controller\HomePageController;
 use App\Entity\EntityManager;
 use App\Entity\PostEntity;
 use App\Repository\PostRepository;
@@ -14,8 +15,8 @@ $dotenv->load();
 
 $em   = new EntityManager();
 $repo = new PostRepository();
-$post = $repo->getHomePagePost();
-var_dump($post);
+$post = $repo->getHomePagePosts();
+// var_dump($post);
 
 /* $test = new PostEntity();
 $test->setTitle('title');
@@ -29,7 +30,12 @@ $test->setUserId(8);
 $em->persist($test);
 $em->flush(); */
 
-if (isset($_GET['page']) && $_GET['page'] !== '') {
+$homePageController = new HomePageController();
+$homePageController->index();
+
+// var_dump($_GET);
+
+/* if (isset($_GET['page']) && $_GET['page'] !== '') {
 	if (file_exists('src\\Templates\\' . $_GET['page'] . '.html')) {
 		require_once 'src\\Templates\\' . $_GET['page'] . '.html';
 	} else {
@@ -37,4 +43,13 @@ if (isset($_GET['page']) && $_GET['page'] !== '') {
 	}
 } else {
 	require_once 'src\\Templates\MainContainer.html';
-}
+} */
+/* if (isset($_GET['page']) && $_GET['page'] !== '') {
+	if (file_exists('src\\Templates\\' . $_GET['page'] . '.html')) {
+		require_once 'src\\Templates\\' . $_GET['page'] . '.html';
+	} else {
+		require_once 'src\\Templates\Error404.html';
+	}
+} else {
+	require_once 'src\\Templates\MainContainer.html';
+} */

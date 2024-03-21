@@ -6,6 +6,7 @@ use App\Entity\PostEntity;
 use App\PDO\DataBaseConnection;
 use App\Repository\Abstracts\AbstractRepository;
 use Exception;
+use PDO;
 
 readonly class PostRepository extends AbstractRepository
 {
@@ -26,7 +27,7 @@ readonly class PostRepository extends AbstractRepository
 		return get_class($this->referenceEntity);
 	}
 
-	public function getHomePagePost(): array
+	public function getHomePagePosts(): array
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -36,6 +37,8 @@ readonly class PostRepository extends AbstractRepository
 		$query = $dataBase->prepare($sqlQuery);
 
 		$query->execute();
+
+		$query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
 
 		$content = $query->fetchAll();
 		if ($content === false) {
