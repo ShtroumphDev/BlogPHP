@@ -6,11 +6,10 @@ use App\Entity\Abstracts\Entity;
 use App\PDO\DataBaseConnection;
 use Exception;
 use PDO;
-use stdClass;
 
 abstract class AbstractRepository
 {
-	public function find(int $id): ?stdClass
+	public function find(int $id): ?Entity
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -22,7 +21,7 @@ abstract class AbstractRepository
 		$query->bindValue('id', $id, PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(PDO::FETCH_OBJ);
+		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
 		$content = $query->fetch();
 		if ($content === false) {
@@ -32,7 +31,7 @@ abstract class AbstractRepository
 		return $content;
 	}
 
-	public function findOneBy(array $queryParams): ?stdClass
+	public function findOneBy(array $queryParams): ?Entity
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -46,7 +45,7 @@ abstract class AbstractRepository
 		}
 		$query->execute();
 
-		$query->setFetchMode(PDO::FETCH_OBJ);
+		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
 		$content = $query->fetch();
 		if ($content === false) {
@@ -71,7 +70,7 @@ abstract class AbstractRepository
 
 		$query->execute();
 
-		$content = $query->fetchAll();
+		$content = $query->fetchAll(PDO::FETCH_CLASS, $this->getClassName());
 		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}
@@ -91,7 +90,7 @@ abstract class AbstractRepository
 
 		$query->execute();
 
-		$content = $query->fetchAll();
+		$content = $query->fetchAll(PDO::FETCH_CLASS, $this->getClassName());
 		if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
 		}

@@ -1,0 +1,41 @@
+h4 {
+    padding: 0 12px 12px 12px !important;
+}
+
+
+.cards-wrapper {
+
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .article-cards {
+
+        max-width: 90%;
+
+
+        .col {
+            margin-top: 6px;
+            margin-bottom: 6px;
+
+            .card {
+
+                .img-and-button {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+
+                    a {
+                        position: absolute;
+                        bottom: 1em;
+                    }
+
+                    img {
+                        max-width: 350px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -2,20 +2,22 @@
 
 namespace App\Entity;
 
-use DateTime;
 use App\Entity\Abstracts\Entity;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
+use DateTime;
 
 class PostEntity extends Entity
 {
-	private int $id;
-	private string $title;
-	private string $chapo;
-	private string $content;
-	private DateTime $createAt;
-	private DateTime $updatedAt;
-	private int $categoryId;
-	private int $userId;
+	private ?int $id                                    = null;
+	private ?string $title                              = null;
+	private ?string $chapo                              = null;
+	private ?string $content                            = null;
+	private null|string|DateTime $created_at            = null;
+	private null|string|DateTime $updated_at            = null;
+	private ?int $category_id                           = null;
+	private ?int $user_id                               = null;
 
 	public function __construct()
 	{
@@ -24,6 +26,13 @@ class PostEntity extends Entity
 	public function getId(): ?int
 	{
 		return $this->id;
+	}
+
+	public function setId(int $id): self
+	{
+		$this->id = $id;
+
+		return $this;
 	}
 
 	public function getTitle(): ?string
@@ -62,52 +71,66 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getCreateAt(): ?DateTime
+	public function getCreatedAt(): ?DateTime
 	{
-		return $this->createAt;
+		return $this->created_at;
 	}
 
-	public function setCreateAt(DateTime $createAt): self
+	public function setCreatedAt($created_at): self
 	{
-		$this->createAt = $createAt;
+		$this->created_at = $created_at;
 
 		return $this;
 	}
 
 	public function getUpdatedAt(): ?DateTime
 	{
-		return $this->updatedAt;
+		return $this->updated_at;
 	}
 
-	public function setUpdatedAt(DateTime $updatedAt): self
+	public function setUpdatedAt($updated_at): self
 	{
-		$this->updatedAt = $updatedAt;
+		$this->updated_at = $updated_at;
 
 		return $this;
 	}
 
-	public function getCategory(): ?int
+	public function getCategoryId(): ?int
 	{
-		return $this->categoryId;
+		return $this->category_id;
 	}
 
-	public function setCategory(int $categoryId): self
+	public function setCategoryId(int $category_id): self
 	{
-		$this->categoryId = $categoryId;
+		$this->category_id = $category_id;
 
 		return $this;
 	}
 
 	public function getUserId(): ?int
 	{
-		return $this->userId;
+		return $this->user_id;
 	}
 
-	public function setUserId(int $userId): self
+	public function setUserId(int $user_id): self
 	{
-		$this->userId = $userId;
+		$this->user_id = $user_id;
 
 		return $this;
+	}
+
+	public function getUser(): ?UserEntity
+	{
+		$userRepo = new UserRepository();
+
+		return $userRepo->find($this->getUserId());
+	}
+
+	public function getCategory(): ?CategoryEntity
+	{
+		$categoryRepo = new CategoryRepository();
+
+		return $categoryRepo->find($this->getCategoryId());
 	}
 
 	protected function getEntityProperties(): array

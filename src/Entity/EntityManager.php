@@ -5,19 +5,20 @@ namespace App\Entity;
 use App\Entity\Abstracts\Entity;
 use Exception;
 use App\PDO\DataBaseConnection;
+use DateTime;
 use PDO;
 
 class EntityManager
 {
 	private array $persistedRequests;
 
-	public function persist(Entity $entity)
+	public function persist(Entity $entity): void
 	{
 		$entityProperties          = $entity->getOrderedProperties();
 		$this->persistedRequests[] = $entityProperties;
 	}
 
-	public function flush()
+	public function flush(): void
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -32,13 +33,21 @@ class EntityManager
 			}
 			$query = $dataBase->prepare($sqlQuery);
 
+			$this->formatRequest($request['values']);
+
 			$query->execute($request['values']);
 		}
 
-		$dataBase->commit();
+		$error = $dataBase->commit();
+
+		if (!$error) {
+			$dataBase->rollBack();
+
+			throw new Exception('une erreur est survenue lors de l\'enregistrement en base de donnée');
+		}
 	}
 
-	public function removeFromDatabase(Entity $entity)
+	public function removeFromDatabase(Entity $entity): void
 	{
 		if ($entity->getId() === null || empty($entity->getRepository()->find($entity->getId()))) {
 			throw new Exception("Cette donnée ne peut pas être supprimé car elle n'est pas présente dans la base de donnée");
@@ -54,7 +63,7 @@ class EntityManager
 		$query->execute();
 	}
 
-	private function getSqlQuery(array $request, string $mode)
+	private function getSqlQuery(array $request, string $mode): string
 	{
 		if (count($request) === 0) {
 			return null;
@@ -96,5 +105,16 @@ class EntityManager
 		}
 
 		return $sqlQuery;
+	}
+
+	private function formatRequest(array &$propertiesValues): array
+	{
+		foreach ($propertiesValues as $property => $value) {
+			if ($value instanceof DateTime) {
+				$propertiesValues[$property] = $value->format('Y-m-d');
+			}
+		}
+
+		return $propertiesValues;
 	}
 }

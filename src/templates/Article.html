@@ -1,0 +1,31 @@
+<h4 class="text-center h4"><?= htmlspecialchars($post->getTitle()); ?></h4>
+<div class="cards-wrapper">
+  <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-3 article-cards">
+    <div class="col">
+      <div class="card h-100 text-center w-33">
+        <div class="card-header">
+          Par <?= htmlspecialchars($post->getUserPseudo()); ?> posté
+          le :
+          <?= htmlspecialchars($post->getCreatedAt()->format('d-m-Y')); ?>
+        </div>
+        <div class="img-and-button">
+          <img src="src/Ressources/logo.png" class="card-img-top" alt="imageArticle" />
+          <a href="page=article&id=<?= $post->getId() ?>"><button
+              class="btn btn-primary">consulter</button></a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <?= htmlspecialchars($post->getTitle()); ?>
+          </h5>
+          <p class="card-text">
+            <?= htmlspecialchars($post->getContent()); ?>
+          </p>
+        </div>
+        <div class="card-footer">
+          Catégorie :
+          <?= htmlspecialchars($post->getCategoryName()); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

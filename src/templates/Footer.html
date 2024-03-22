@@ -1,0 +1,159 @@
+<footer class="footer text-center p-1">
+  Inscrivez-vous pour poster des commentaires ou proposer des articles
+
+  <button
+    type="button"
+    class="btn btn-outline-primary registerButton"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    s'inscrire
+  </button>
+</footer>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1
+          class="modal-title fs-5"
+          id="exampleModalLabel"
+        >
+          Inscription
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="text-start">
+          <div class="mb-3">
+            <label
+              for="exampleInputEmail1"
+              class="form-label"
+              >Email</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <div
+              id="emailHelp"
+              class="form-text"
+            >
+              Votre email ne sera jamais dévoilé
+            </div>
+          </div>
+          <div class="mb-3">
+            <label
+              for="pseudoInput"
+              class="form-label"
+              >Pseudo</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              maxlength="15"
+              id="pseudoInput"
+              aria-describedby="pseudoHelp"
+            />
+            <div
+              id="pseudoHelp"
+              class="form-text"
+            >
+              Ce pseudo sera votre identité auprès des autres utilisateurs
+            </div>
+          </div>
+          <div class="mb-3">
+            <label
+              for="exampleInputPassword1"
+              class="form-label"
+              >Mot de passe</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="firstNameInput"
+              class="form-label"
+              >Prénom</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              maxlength="15"
+              id="firstNameInput"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="lastNameInput"
+              class="form-label"
+              >Nom</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              maxlength="15"
+              id="lastNameInput"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="formFile"
+              class="form-label"
+              >Choisir un logo</label
+            >
+            <input
+              class="form-control"
+              type="file"
+              id="formFile"
+            />
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label
+              class="form-check-label"
+              for="exampleCheck1"
+              >Se souvenir de moi</label
+            >
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Abandonner
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Confirmer l'inscription
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

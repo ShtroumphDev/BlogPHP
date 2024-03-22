@@ -1,0 +1,11 @@
+.footer {
+  background-color: #23283b;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: rgb(226, 226, 226);
+}
+.footer .registerButton {
+  color: rgb(226, 226, 226);
+  border-color: rgb(226, 226, 226);
+}/*# sourceMappingURL=footer.css.map */

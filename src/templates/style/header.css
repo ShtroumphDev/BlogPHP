@@ -1,0 +1,34 @@
+header {
+  padding-bottom: 1em;
+  padding-top: 1em;
+  margin: 12px;
+  width: calc(100% - 24px);
+  background-color: #23283b;
+}
+header .imgAndText .welcomeLogoSmall {
+  width: 65px;
+  height: 65px;
+  float: left;
+}
+header .imgAndText p {
+  color: rgb(226, 226, 226);
+  margin: 6px;
+}
+header .imgAndText hr {
+  width: 50%;
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 12px 12px 12px;
+}
+.buttons button {
+  color: #23283b;
+  border-color: #23283b;
+}
+.buttons button:hover {
+  background-color: #4c5781;
+  border-color: whitesmoke;
+}/*# sourceMappingURL=header.css.map */

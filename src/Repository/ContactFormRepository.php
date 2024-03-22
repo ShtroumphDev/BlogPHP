@@ -21,6 +21,6 @@ class ContactFormRepository extends AbstractRepository
 
 	protected function getClassName(): string
 	{
-		return get_class($this->referenceEntity);
+		return ContactFormEntity::class;
 	}
 }
