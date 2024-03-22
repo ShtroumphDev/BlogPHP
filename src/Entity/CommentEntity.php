@@ -9,8 +9,8 @@ use App\Repository\CommentsRepository;
 class CommentEntity extends Entity
 {
 	private int $id;
-	private DateTime $createAt;
-	private DateTime $updatedAt;
+	private string|DateTime $createAt;
+	private string|DateTime $updatedAt;
 	private string $content;
 	private int $userId;
 	private int $postId;

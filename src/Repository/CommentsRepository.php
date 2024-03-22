@@ -21,6 +21,6 @@ class CommentsRepository extends AbstractRepository
 
 	protected function getClassName(): string
 	{
-		return get_class($this->referenceEntity);
+		return CommentEntity::class;
 	}
 }

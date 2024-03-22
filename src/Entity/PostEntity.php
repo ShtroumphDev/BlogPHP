@@ -95,12 +95,12 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getCategory(): ?int
+	public function getCategoryId(): ?int
 	{
 		return $this->category_id;
 	}
 
-	public function setCategory(int $category_id): self
+	public function setCategoryId(int $category_id): self
 	{
 		$this->category_id = $category_id;
 
@@ -119,18 +119,18 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getUserPseudo(): ?string
+	public function getUser(): ?UserEntity
 	{
 		$userRepo = new UserRepository();
 
-		return $userRepo->find($this->getUserId())->pseudo ?? 'Inconnu';
+		return $userRepo->find($this->getUserId());
 	}
 
-	public function getCategoryName(): ?string
+	public function getCategory(): ?CategoryEntity
 	{
 		$categoryRepo = new CategoryRepository();
 
-		return $categoryRepo->find($this->getCategory())->name ?? 'Inconnu';
+		return $categoryRepo->find($this->getCategoryId());
 	}
 
 	protected function getEntityProperties(): array
