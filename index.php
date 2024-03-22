@@ -3,9 +3,11 @@
 require_once 'src\PDO\DataBaseConnection.php';
 
 use App\Controller\HomePageController;
+use App\Controller\PostController;
 use Dotenv\Dotenv;
 
-$controller =new HomePageController();
+$controller     =new HomePageController();
+$postController = new PostController();
 session_start();
 
 $dotenv = Dotenv::createImmutable(__DIR__);
