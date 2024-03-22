@@ -8,12 +8,12 @@ use DateTime;
 
 class ContactFormEntity extends Entity
 {
-	private ?int $id           = null;
-	private ?string $email     = null;
-	private ?string $firstName = null;
-	private ?string $lastName  = null;
-	private ?string $message   = null;
-	private DateTime $sendAt;
+	private ?int $id                     = null;
+	private ?string $email               = null;
+	private ?string $firstName           = null;
+	private ?string $lastName            = null;
+	private ?string $message             = null;
+	private null|string|DateTime $sendAt = null;
 
 	public function getId(): ?int
 	{

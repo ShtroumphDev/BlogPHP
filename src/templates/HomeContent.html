@@ -5,7 +5,9 @@
     <div class="col">
       <div class="card h-100 text-center w-33">
         <div class="card-header">
-          Par <?= htmlspecialchars($post->getUserPseudo()); ?> posté
+          Par
+          <?= htmlspecialchars($post->getUser()->getPseudo() ?? 'Inconnu'); ?>
+          posté
           le :
           <?= htmlspecialchars($post->getCreatedAt()->format('d-m-Y')); ?>
         </div>
@@ -24,7 +26,7 @@
         </div>
         <div class="card-footer">
           Catégorie :
-          <?= htmlspecialchars($post->getCategoryName()); ?>
+          <?= htmlspecialchars($post->getCategory()->getName() ?? 'Inconnu'); ?>
         </div>
       </div>
     </div>
