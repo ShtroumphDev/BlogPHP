@@ -57,9 +57,8 @@ class PostRepository extends AbstractRepository
 		$posts = [];
 		foreach ($content as $post) {
 			$newPost   = new PostEntity();
-			if ($post->id !== null) {
-				$newPost->setId($post->id);
-			}
+
+			$newPost->setId($post->id);
 			$newPost->setTitle($post->title);
 			$newPost->setChapo($post->chapo);
 			$newPost->setContent($post->content);
