@@ -7,7 +7,7 @@ use Exception;
 use PDO;
 use stdClass;
 
-abstract readonly class AbstractRepository
+abstract class AbstractRepository
 {
 	public function find(int $id): ?stdClass
 	{

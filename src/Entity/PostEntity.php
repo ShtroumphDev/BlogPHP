@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Entity\Abstracts\Entity;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use DateTime;
 
 class PostEntity extends Entity
@@ -115,6 +117,20 @@ class PostEntity extends Entity
 		$this->user_id = $user_id;
 
 		return $this;
+	}
+
+	public function getUserPseudo(): ?string
+	{
+		$userRepo = new UserRepository();
+
+		return $userRepo->find($this->getUserId())->pseudo ?? 'Inconnu';
+	}
+
+	public function getCategoryName(): ?string
+	{
+		$categoryRepo = new CategoryRepository();
+
+		return $categoryRepo->find($this->getCategory())->name ?? 'Inconnu';
 	}
 
 	protected function getEntityProperties(): array

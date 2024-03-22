@@ -8,6 +8,8 @@ abstract class AbstractController
 {
 	protected function renderPage(string $content)
 	{
-		echo $content;
+		require_once 'src/Templates/MainContainer.html';
 	}
+
+	abstract public function index(): void;
 }
