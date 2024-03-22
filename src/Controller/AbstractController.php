@@ -10,6 +10,4 @@ abstract class AbstractController
 	{
 		require_once 'src/Templates/MainContainer.html';
 	}
-
-	abstract public function index(): void;
 }

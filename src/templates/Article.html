@@ -1,7 +1,6 @@
-<h4 class="text-center h4">Voici les derniers articles paru sur notre blog</h4>
+<h4 class="text-center h4"><?= htmlspecialchars($post->getTitle()); ?></h4>
 <div class="cards-wrapper">
   <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-3 article-cards">
-    <?php foreach ($homePagePosts as $post) { ?>
     <div class="col">
       <div class="card h-100 text-center w-33">
         <div class="card-header">
@@ -28,6 +27,5 @@
         </div>
       </div>
     </div>
-    <?php } ?>
   </div>
 </div>
