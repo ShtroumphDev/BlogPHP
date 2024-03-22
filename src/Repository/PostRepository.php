@@ -64,7 +64,7 @@ class PostRepository extends AbstractRepository
 			$newPost->setContent($post->content);
 			$newPost->setCreatedAt(DateTime::createFromFormat('Y-m-d', $post->created_at));
 			$newPost->setUpdatedAt(DateTime::createFromFormat('Y-m-d', $post->updated_at));
-			$newPost->setCategory($post->category_id);
+			$newPost->setCategoryId($post->category_id);
 			$newPost->setUserId($post->user_id);
 
 			$posts[] = $newPost;
