@@ -71,7 +71,7 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getCreatedAt(): ?DateTime
+	public function getCreatedAt(): null|string|DateTime
 	{
 		return $this->created_at;
 	}
@@ -83,7 +83,7 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getUpdatedAt(): ?DateTime
+	public function getUpdatedAt(): null|string|DateTime
 	{
 		return $this->updated_at;
 	}

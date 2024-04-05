@@ -12,12 +12,13 @@ class HomePageController extends AbstractController
 
 	public function __construct()
 	{
-		$this->postRepository = new PostRepository();
+		$this->postRepository     = new PostRepository();
+		parent::__construct();
 	}
 
 	public function index(): void
 	{
-		$homePagePosts = $this->postRepository->getHomePagePosts();
+		$posts      = $this->postRepository->getHomePagePosts();
 
 		ob_start();
 		require_once 'src/Templates/HomeContent.html';
