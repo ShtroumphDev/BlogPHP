@@ -1,24 +1,27 @@
 <?php
 
-require_once 'src\PDO\DataBaseConnection.php';
+require_once 'vendor/autoload.php';
 
-use App\Controller\HomePageController;
-use App\Controller\PostController;
+use App\Router\Router;
 use Dotenv\Dotenv;
 
-$controller     =new HomePageController();
-$postController = new PostController();
 session_start();
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-if (isset($_GET['page']) && $_GET['page'] !== '') {
-	if (file_exists('src\\Templates\\' . $_GET['page'] . '.html')) {
-		require_once 'src\\Templates\\' . $_GET['page'] . '.html';
-	} else {
-		require_once 'src\\Templates\Error404.html';
-	}
-} else {
-	$controller->index();
-}
+$router = new Router($_GET['url']);
+$router->get('/', 'HomePageController#index');
+$router->get('/article/:id', 'PostController#showOnePost');
+$router->get('/articles/tous-les-articles', 'PostController#showAllPosts');
+$router->get('/articles/categorie-:id', 'PostController#showAllPostsByCategory');
+$router->get('/posts/:id-:slug', function ($id, $slug) use ($router) {
+	echo $router->url('post.show', ['id' => 1, 'slug' => 'salut-les-gens']);
+}, 'post.show')
+	->with('id', '[0-9]+')
+	->with('slug', '[a-z\-0-9]+');
+$router->get('/posts/:id', 'HomePageController#index');
+$router->post('/posts/:id', function ($id) {
+	echo 'je poste larticle numero ID' . $id;
+});
+$router->run();

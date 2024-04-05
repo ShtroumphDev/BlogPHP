@@ -13,14 +13,37 @@ class PostController extends AbstractController
 	public function __construct()
 	{
 		$this->postRepository = new PostRepository();
+		parent::__construct();
 	}
 
-	public function showOneArticle(int $postId): void
+	public function showOnePost(int $postId): void
 	{
-		$homePagePosts = $this->postRepository->find($postId);
+		$post = $this->postRepository->find($postId);
 
 		ob_start();
 		require_once 'src/Templates/Article.html';
+		$content = ob_get_clean();
+
+		$this->renderPage($content);
+	}
+
+	public function showAllPosts(): void
+	{
+		$posts = $this->postRepository->findAll();
+
+		ob_start();
+		require_once 'src/Templates/HomeContent.html';
+		$content = ob_get_clean();
+
+		$this->renderPage($content);
+	}
+
+	public function showAllPostsByCategory(int $categoryId): void
+	{
+		$posts = $this->postRepository->findBy(['category_id' => $categoryId]);
+
+		ob_start();
+		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
 		$this->renderPage($content);

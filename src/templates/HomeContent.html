@@ -1,7 +1,7 @@
 <h4 class="text-center h4">Voici les derniers articles paru sur notre blog</h4>
 <div class="cards-wrapper">
   <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-3 article-cards">
-    <?php foreach ($homePagePosts as $post) { ?>
+    <?php foreach ($posts as $post) { ?>
     <div class="col">
       <div class="card h-100 text-center w-33">
         <div class="card-header">
@@ -9,11 +9,11 @@
           <?= htmlspecialchars($post->getUser()->getPseudo() ?? 'Inconnu'); ?>
           posté
           le :
-          <?= htmlspecialchars($post->getCreatedAt()->format('d-m-Y')); ?>
+          <?= htmlspecialchars($post->getCreatedAt()); ?>
         </div>
         <div class="img-and-button">
-          <img src="src/Ressources/logo.png" class="card-img-top" alt="imageArticle" />
-          <a href="page=article&id=<?= $post->getId() ?>"><button
+          <img src="/blogphp/src/Ressources/logo.png" class="card-img-top" alt="imageArticle" />
+          <a href="/blogphp/article/<?= $post->getId() ?>"><button
               class="btn btn-primary">consulter</button></a>
         </div>
         <div class="card-body">

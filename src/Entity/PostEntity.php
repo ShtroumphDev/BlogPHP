@@ -6,7 +6,6 @@ use App\Entity\Abstracts\Entity;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
-use DateTime;
 
 class PostEntity extends Entity
 {
@@ -14,8 +13,8 @@ class PostEntity extends Entity
 	private ?string $title                              = null;
 	private ?string $chapo                              = null;
 	private ?string $content                            = null;
-	private null|string|DateTime $created_at            = null;
-	private null|string|DateTime $updated_at            = null;
+	private ?string $created_at                         = null;
+	private ?string $updated_at                         = null;
 	private ?int $category_id                           = null;
 	private ?int $user_id                               = null;
 
@@ -71,7 +70,7 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getCreatedAt(): ?DateTime
+	public function getCreatedAt(): ?string
 	{
 		return $this->created_at;
 	}
@@ -83,7 +82,7 @@ class PostEntity extends Entity
 		return $this;
 	}
 
-	public function getUpdatedAt(): ?DateTime
+	public function getUpdatedAt(): ?string
 	{
 		return $this->updated_at;
 	}
