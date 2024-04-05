@@ -13,6 +13,7 @@ class PostController extends AbstractController
 	public function __construct()
 	{
 		$this->postRepository = new PostRepository();
+		parent::__construct();
 	}
 
 	public function showOnePost(int $postId): void
@@ -39,7 +40,7 @@ class PostController extends AbstractController
 
 	public function showAllPostsByCategory(int $categoryId): void
 	{
-		$posts = $this->postRepository->findBy(['category' => $categoryId]);
+		$posts = $this->postRepository->findBy(['category_id' => $categoryId]);
 
 		ob_start();
 		require_once 'src/Templates/HomeContent.html';

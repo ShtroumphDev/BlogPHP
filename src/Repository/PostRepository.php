@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\PostEntity;
 use App\PDO\DataBaseConnection;
 use App\Repository\Abstracts\AbstractRepository;
-use DateTime;
 use Exception;
 use PDO;
 
@@ -62,8 +61,8 @@ class PostRepository extends AbstractRepository
 			$newPost->setTitle($post->title);
 			$newPost->setChapo($post->chapo);
 			$newPost->setContent($post->content);
-			$newPost->setCreatedAt(DateTime::createFromFormat('Y-m-d', $post->created_at));
-			$newPost->setUpdatedAt(DateTime::createFromFormat('Y-m-d', $post->updated_at));
+			$newPost->setCreatedAt($post->created_at);
+			$newPost->setUpdatedAt($post->updated_at);
 			$newPost->setCategoryId($post->category_id);
 			$newPost->setUserId($post->user_id);
 

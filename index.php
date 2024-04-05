@@ -2,22 +2,19 @@
 
 require_once 'vendor/autoload.php';
 
-use App\Controller\HomePageController;
 use App\Router\Router;
 use Dotenv\Dotenv;
 
-$controller     = new HomePageController();
 session_start();
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
 $router = new Router($_GET['url']);
-$router->get('/', function () {
-	echo 'bienvenue page acceuil';
-});
-$router->get('/posts', function () {
-	echo 'tout les articles';
-});
+$router->get('/', 'HomePageController#index');
+$router->get('/article/:id', 'PostController#showOnePost');
+$router->get('/articles/tous-les-articles', 'PostController#showAllPosts');
+$router->get('/articles/categorie-:id', 'PostController#showAllPostsByCategory');
 $router->get('/posts/:id-:slug', function ($id, $slug) use ($router) {
 	echo $router->url('post.show', ['id' => 1, 'slug' => 'salut-les-gens']);
 }, 'post.show')
@@ -28,5 +25,3 @@ $router->post('/posts/:id', function ($id) {
 	echo 'je poste larticle numero ID' . $id;
 });
 $router->run();
-/* $router = new App\Router($_GET['url']); */
-// $controller->index();
