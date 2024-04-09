@@ -31,7 +31,7 @@ abstract class AbstractRepository
 		return $content;
 	}
 
-	public function findOneBy(array $queryParams): ?Entity
+	public function findOneBy(array $queryParams): false|Entity
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -48,9 +48,9 @@ abstract class AbstractRepository
 		$query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
 		$content = $query->fetch();
-		if ($content === false) {
+		/* if ($content === false) {
 			throw new Exception("Cette donnée ne peut pas être récupérée car elle n'est pas présente dans la base de donnée");
-		}
+		} */
 
 		return $content;
 	}

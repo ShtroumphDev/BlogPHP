@@ -6,6 +6,9 @@ use App\Router\Router;
 use Dotenv\Dotenv;
 
 session_start();
+if (empty($_SESSION['token'])) {
+	$_SESSION['token'] = bin2hex(random_bytes(32));
+}
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -24,4 +27,5 @@ $router->get('/posts/:id', 'HomePageController#index');
 $router->post('/posts/:id', function ($id) {
 	echo 'je poste larticle numero ID' . $id;
 });
+$router->post('/add-user', 'UserController#add');
 $router->run();
