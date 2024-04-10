@@ -36,8 +36,13 @@ class UserController extends AbstractController
 			}
 		}
 
-		if (empty($missingData)) {
+		if (!empty($missingData)) {
+			$_SESSION['subscribe_error'] = [];
+			array_push($_SESSION['subscribe_error'], ...$missingData);
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
+
 		$userExist = $this->userRepository->findOneBy(['email' => $_POST['email']]);
 		if ($userExist) {
 			echo 'coucou';
@@ -62,7 +67,5 @@ class UserController extends AbstractController
 		} catch (\Throwable $th) {
 			//throw $th;
 		}
-
-		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 	}
 }
