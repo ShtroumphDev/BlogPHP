@@ -18,8 +18,10 @@ abstract class AbstractController
 	public function renderPage(string $content)
 	{
 		$categories = $this->categoryRepository->findAll();
-		$test       = 'coucou je suis un test';
+
+		ob_start();
 		require_once 'src/Templates/Navigation.html';
+		$nav = ob_get_clean();
 
 		require_once 'src/Templates/MainContainer.html';
 		require_once 'src/Templates/Footer.html';

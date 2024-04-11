@@ -25,11 +25,14 @@
             <label for="exampleInputEmail1" class="form-label">Email</label>
             <input type="email" name="email" class="form-control <?php if (isset($_SESSION['subscribe_error']) && in_array('email', $_SESSION['subscribe_error'])) {
             	echo 'is-invalid';
-            }?>" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="off"
-              required />
+            }?>" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="off" />
             <?php if (isset($_SESSION['subscribe_error']) && in_array('email', $_SESSION['subscribe_error'])) {
             	echo '<div id="emailHelp" class="text-danger">
               <small>email invalide ou manquant</small>
+            </div>';
+            } if (isset($_SESSION['subscribe_error']) && in_array('email_already_used', $_SESSION['subscribe_error'])) {
+            	echo '<div id="emailHelp" class="text-danger">
+              <small>un utilisateur est déjà inscrit avec cet email</small>
             </div>';
             }?>
 
@@ -37,7 +40,7 @@
           <div class="mb-3">
             <label for="pseudoInput" class="form-label">Pseudo</label>
             <input type="text" name="pseudo" class="form-control" maxlength="15" id="pseudoInput"
-              aria-describedby="pseudoHelp" autocomplete="on" required />
+              aria-describedby="pseudoHelp" autocomplete="on" />
             <?php if (isset($_SESSION['subscribe_error']) && in_array('pseudo', $_SESSION['subscribe_error'])) {
             	echo '<div class="text-danger">
               <small>pseudo invalide ou manquant</small>
@@ -50,7 +53,7 @@
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
             <input type="password" name="password" minlength="6" class="form-control" id="exampleInputPassword1"
-              autocomplete="on" required />
+              autocomplete="on" />
             <?php if (isset($_SESSION['subscribe_error']) && in_array('password', $_SESSION['subscribe_error'])) {
             	echo '<div class="text-danger">
               <small>mot de passe invalide ou manquant</small>
@@ -60,7 +63,7 @@
           <div class="mb-3">
             <label for="firstNameInput" class="form-label">Prénom</label>
             <input type="text" name="firstname" class="form-control" maxlength="15" id="firstNameInput"
-              autocomplete="on" required />
+              autocomplete="on" />
             <?php if (isset($_SESSION['subscribe_error']) && in_array('firstname', $_SESSION['subscribe_error'])) {
             	echo '<div class="text-danger">
               <small>prénom invalide ou manquant</small>
@@ -69,8 +72,8 @@
           </div>
           <div class="mb-3">
             <label for="lastNameInput" class="form-label">Nom</label>
-            <input type="text" name="lastname" class="form-control" maxlength="15" id="lastNameInput" autocomplete="on"
-              required />
+            <input type="text" name="lastname" class="form-control" maxlength="15" id="lastNameInput"
+              autocomplete="on" />
             <?php if (isset($_SESSION['subscribe_error']) && in_array('lastname', $_SESSION['subscribe_error'])) {
             	echo '<div class="text-danger">
               <small>nom invalide ou manquant</small>
@@ -105,9 +108,6 @@
       ?
       true : false;
 
-
-
-    console.log(formError);
     if (formError) {
       const modalToggle = new bootstrap.Modal(document.getElementById('exampleModal'), {
         keyboard: false

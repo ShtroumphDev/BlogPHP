@@ -21,8 +21,6 @@ class UserController extends AbstractController
 
 	public function add(): void
 	{
-		//! afficher que l'utilisateur a été correctement ajouté ou afficher l'erreur
-		//! ouvrir la modale dans le cas d'une erreur sinon afficher la page avec une div pour afficher le succes
 		$mandatoryData = ['email', 'pseudo', 'password', 'firstname', 'lastname'];
 		$missingData   = [];
 
@@ -32,6 +30,11 @@ class UserController extends AbstractController
 
 		foreach ($mandatoryData as $property) {
 			if (!isset($_POST[$property]) || !is_string($_POST[$property]) || $_POST[$property] === '') {
+				if ($property === 'password' && strlen($_POST[$property]) < 6) {
+					$missingData[] = $property;
+
+					continue;
+				}
 				$missingData[] = $property;
 			}
 		}
@@ -45,13 +48,19 @@ class UserController extends AbstractController
 
 		$userExist = $this->userRepository->findOneBy(['email' => $_POST['email']]);
 		if ($userExist) {
-			echo 'coucou';
+			$_SESSION['subscribe_error'] = [];
+			array_push($_SESSION['subscribe_error'], 'email_already_used');
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
 
 		$user = new UserEntity();
 		$user->setEmail($_POST['email']);
 		$user->setPseudo($_POST['pseudo']);
-		$user->setPassword($_POST['password']);
+
+		$hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$user->setPassword($hashed_password);
+
 		$user->setfirstname($_POST['firstname']);
 		$user->setlastname($_POST['lastname']);
 		$user->setRole('subscriber');
@@ -65,7 +74,12 @@ class UserController extends AbstractController
 		try {
 			$em->flush();
 		} catch (\Throwable $th) {
-			//throw $th;
+			$_SESSION['user_flush_error'] = true;
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
+
+		$_SESSION['subscribe_success'] = true;
+		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 	}
 }
