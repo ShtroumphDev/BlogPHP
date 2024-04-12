@@ -23,8 +23,6 @@
 	  	echo $nav;
 	  } ?>
     <?php
-   require_once 'src/Templates/Header.html'?>
-    <?php
 	  if (isset($_SESSION['subscribe_success']) && $_SESSION['subscribe_success'] === true) {
 	  	require_once 'src/Templates/SubscribeSuccess.html';
 	  	unset($_SESSION['subscribe_success']);

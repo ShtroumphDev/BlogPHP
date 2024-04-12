@@ -80,6 +80,7 @@ class UserController extends AbstractController
 		}
 
 		$_SESSION['subscribe_success'] = true;
+		$_SESSION['user_pseudo']       = $_POST['pseudo'];
 		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 	}
 }
