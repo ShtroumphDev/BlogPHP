@@ -63,10 +63,13 @@ class UserController extends AbstractController
 
 		$user->setfirstname($_POST['firstname']);
 		$user->setlastname($_POST['lastname']);
+
+		//! provisoire , a refaire plus tard
 		$user->setRole('subscriber');
 		if (isset($_POST[$property]) || is_string($_POST[$property])) {
 			$user->setLogo($_POST['logo']);
 		}
+		//!
 
 		$em = new EntityManager();
 		$em->persist($user);
@@ -79,8 +82,8 @@ class UserController extends AbstractController
 			exit;
 		}
 
-		$_SESSION['subscribe_success'] = true;
-		$_SESSION['user_pseudo']       = $_POST['pseudo'];
+		$_SESSION['subscribe_success']       = true;
+		$_SESSION['subscriber_pseudo']       = $_POST['pseudo'];
 		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 	}
 }

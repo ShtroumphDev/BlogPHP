@@ -28,4 +28,5 @@ $router->post('/posts/:id', function ($id) {
 	echo 'je poste larticle numero ID' . $id;
 });
 $router->post('/add-user', 'UserController#add');
+$router->post('/connexion', 'AuthenticationController#logIn');
 $router->run();
