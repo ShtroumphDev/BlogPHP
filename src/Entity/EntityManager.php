@@ -18,7 +18,7 @@ class EntityManager
 		$this->persistedRequests[] = $entityProperties;
 	}
 
-	public function flush(): void
+	public function flush(): int
 	{
 		$dataBaseConnection = new DataBaseConnection();
 		$dataBase           = $dataBaseConnection->connectToDataBase();
@@ -38,6 +38,8 @@ class EntityManager
 			$query->execute($request['values']);
 		}
 
+		$rowId = $dataBase->lastInsertId();
+
 		$error = $dataBase->commit();
 
 		if (!$error) {
@@ -45,6 +47,8 @@ class EntityManager
 
 			throw new Exception('une erreur est survenue lors de l\'enregistrement en base de donnée');
 		}
+
+		return $rowId;
 	}
 
 	public function removeFromDatabase(Entity $entity): void

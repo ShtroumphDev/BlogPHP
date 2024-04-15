@@ -1,3 +1,7 @@
 .nav-item-hover:hover {
   scale: 1.1;
+}
+
+.custom-ul {
+  gap: 0.5rem;
 }/*# sourceMappingURL=navigation.css.map */

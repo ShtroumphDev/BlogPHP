@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\UserEntity;
 use App\Repository\UserRepository;
 use Exception;
 
@@ -51,15 +52,26 @@ class AuthenticationController extends AbstractController
 
 		$storedPassword = $user->getPassword();
 		if (password_verify($_POST['password'], $storedPassword)) {
-			$_SESSION['user'] = $user;
-			unset($_SESSION['login_error'], $_SESSION['token'], $_SESSION['subscribe_error'], $_SESSION['subscribe_success'], $_SESSION['subscriber_pseudo']);
-			$_SESSION['token'] = bin2hex(random_bytes(32));
-			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
-			exit;
+			$this->startUserSession($user);
 		}
+	}
+
+	public function startUserSession(UserEntity $user)
+	{
+		session_destroy();
+		session_start();
+		$_SESSION['user']  = $user;
+		$_SESSION['token'] = bin2hex(random_bytes(32));
+		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+		exit;
 	}
 
 	public function logOut()
 	{
+		session_destroy();
+		session_start();
+		$_SESSION['token'] = bin2hex(random_bytes(32));
+		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+		exit;
 	}
 }
