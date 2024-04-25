@@ -23,12 +23,15 @@ abstract class AbstractController
 			$userLogedIn = true;
 		} else {
 			$userLogedIn = false;
+			ob_start();
+			require_once 'src/Templates/Footer.html';
+			$footer = ob_get_clean();
 		}
+
 		ob_start();
 		require_once 'src/Templates/Navigation.html';
 		$nav = ob_get_clean();
 
 		require_once 'src/Templates/MainContainer.html';
-		require_once 'src/Templates/Footer.html';
 	}
 }
