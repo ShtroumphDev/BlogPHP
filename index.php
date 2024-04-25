@@ -6,6 +6,9 @@ use App\Router\Router;
 use Dotenv\Dotenv;
 
 session_start();
+if (empty($_SESSION['token'])) {
+	$_SESSION['token'] = bin2hex(random_bytes(32));
+}
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -18,10 +21,13 @@ $router->get('/articles/categorie-:id', 'PostController#showAllPostsByCategory')
 $router->get('/posts/:id-:slug', function ($id, $slug) use ($router) {
 	echo $router->url('post.show', ['id' => 1, 'slug' => 'salut-les-gens']);
 }, 'post.show')
-	->with('id', '[0-9]+')
-	->with('slug', '[a-z\-0-9]+');
+->with('id', '[0-9]+')
+->with('slug', '[a-z\-0-9]+');
 $router->get('/posts/:id', 'HomePageController#index');
 $router->post('/posts/:id', function ($id) {
 	echo 'je poste larticle numero ID' . $id;
 });
+$router->post('/add-user', 'UserController#add');
+$router->post('/connexion', 'AuthenticationController#logIn');
+$router->get('/deconnexion', 'AuthenticationController#logOut');
 $router->run();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
   <head>
     <meta charset="UTF-8" />
@@ -19,13 +19,26 @@
 
   <body>
     <?php
-   require_once 'src/Templates/Header.html'?>
+	  if (isset($nav)) {
+	  	echo $nav;
+	  } ?>
+    <?php
+	  if (isset($_SESSION['subscribe_success']) && $_SESSION['subscribe_success'] === true) {
+	  	require_once 'src/Templates/SubscribeSuccess.html';
+	  	unset($_SESSION['subscribe_success']);
+	  } ?>
     <div class="content">
       <?php
-   echo $content?>
+	  if (isset($content)) {
+	  	echo $content;
+	  } else {
+	  	echo 'pas de contenu';
+	  } ?>
     </div>
     <?php
-   require_once 'src/Templates/Footer.html'?>
+	  if (isset($footer)) {
+	  	echo $footer;
+	  } ?>
   </body>
 
 </html>

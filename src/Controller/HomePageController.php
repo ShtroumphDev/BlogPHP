@@ -21,6 +21,7 @@ class HomePageController extends AbstractController
 		$posts      = $this->postRepository->getHomePagePosts();
 
 		ob_start();
+		require_once 'src/Templates/Header.html';
 		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
