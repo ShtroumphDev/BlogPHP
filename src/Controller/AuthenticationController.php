@@ -44,7 +44,8 @@ class AuthenticationController extends AbstractController
 
 		$user = $this->userRepository->findOneBy(['email' => $userEmail]);
 		if (!$user) {
-			$_SESSION['login_error'] = [];
+			$_SESSION['login_error']          = [];
+			$_SESSION['login_error']['email'] = $_POST['email'];
 			array_push($_SESSION['login_error'], 'unknown_email');
 			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 			exit;
@@ -53,6 +54,12 @@ class AuthenticationController extends AbstractController
 		$storedPassword = $user->getPassword();
 		if (password_verify($_POST['password'], $storedPassword)) {
 			$this->startUserSession($user);
+		} else {
+			$_SESSION['login_error']          = [];
+			$_SESSION['login_error']['email'] = $_POST['email'];
+			array_push($_SESSION['login_error'], 'password');
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
 	}
 
