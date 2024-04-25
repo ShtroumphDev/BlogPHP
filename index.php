@@ -30,4 +30,9 @@ $router->post('/posts/:id', function ($id) {
 $router->post('/add-user', 'UserController#add');
 $router->post('/connexion', 'AuthenticationController#logIn');
 $router->get('/deconnexion', 'AuthenticationController#logOut');
-$router->run();
+
+try {
+	$router->run();
+} catch (\Throwable $error) {
+	include_once './src/templates/Error404.html';
+}
