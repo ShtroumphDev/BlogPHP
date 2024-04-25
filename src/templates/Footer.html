@@ -102,18 +102,16 @@
   </div>
 </div>
 <script>
-  window.onload = (event) => {
-    const formError =
-      <?php echo json_encode(isset($_SESSION['subscribe_error']), JSON_HEX_TAG) ?>
-      ?
-      true : false;
+  const formError =
+    <?php echo json_encode(isset($_SESSION['subscribe_error']), JSON_HEX_TAG) ?>
+    ?
+    true : false;
 
-    if (formError) {
-      const modalToggle = new bootstrap.Modal(document.getElementById('exampleModal'), {
-        keyboard: false
-      });
-      modalToggle.show();
-      <?php unset($_SESSION['subscribe_error']) ?>
-    }
-  };
+  if (formError) {
+    const modalToggle = new bootstrap.Modal(document.getElementById('exampleModal'), {
+      keyboard: false
+    });
+    modalToggle.show();
+    <?php unset($_SESSION['subscribe_error']) ?>
+  }
 </script>

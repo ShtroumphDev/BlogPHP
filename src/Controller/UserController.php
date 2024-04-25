@@ -12,10 +12,12 @@ use Exception;
 class UserController extends AbstractController
 {
 	private readonly UserRepository $userRepository;
+	private readonly AuthenticationController $authenticationController;
 
 	public function __construct()
 	{
-		$this->userRepository = new UserRepository();
+		$this->userRepository           = new UserRepository();
+		$this->authenticationController = new AuthenticationController();
 		parent::__construct();
 	}
 
@@ -63,24 +65,29 @@ class UserController extends AbstractController
 
 		$user->setfirstname($_POST['firstname']);
 		$user->setlastname($_POST['lastname']);
+
+		//! provisoire , a refaire plus tard
 		$user->setRole('subscriber');
 		if (isset($_POST[$property]) || is_string($_POST[$property])) {
 			$user->setLogo($_POST['logo']);
 		}
+		//!
 
 		$em = new EntityManager();
 		$em->persist($user);
 
 		try {
-			$em->flush();
+			$userId = $em->flush();
 		} catch (\Throwable $th) {
 			$_SESSION['user_flush_error'] = true;
 			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 			exit;
 		}
+		$_SESSION['subscribe_success']       = true;
+		$_SESSION['subscriber_pseudo']       = $_POST['pseudo'];
 
-		$_SESSION['subscribe_success'] = true;
-		$_SESSION['user_pseudo']       = $_POST['pseudo'];
-		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+		$user             = $this->userRepository->find($userId);
+
+		$this->authenticationController->startUserSession($user);
 	}
 }
