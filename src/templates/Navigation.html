@@ -47,7 +47,10 @@
                   <label for="loginEmailInput" class="form-label">Email</label>
                   <input type="email" name="email" class="form-control <?php if (isset($_SESSION['subscribe_error']) && in_array('email', $_SESSION['subscribe_error'])) {
                   	echo 'is-invalid';
-                  }?>" id="loginEmailInput" aria-describedby="loginEmailHelp" autocomplete="off" />
+                  }?>" id="loginEmailInput" aria-describedby="loginEmailHelp" autocomplete="off"
+                    value="<?php if (isset($_SESSION['login_error']['email'])) {
+                    	echo $_SESSION['login_error']['email'];
+                    } ?>" />
                   <?php if (isset($_SESSION['login_error']) && in_array('email', $_SESSION['login_error'])) {
                   	echo '<div id="loginEmailHelp" class="text-danger">
               <small>email invalide ou manquant</small>

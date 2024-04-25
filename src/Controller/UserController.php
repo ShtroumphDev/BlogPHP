@@ -40,9 +40,11 @@ class UserController extends AbstractController
 				$missingData[] = $property;
 			}
 		}
-
+		$_SESSION['subscribe_error'] = [];
 		if (!empty($missingData)) {
-			$_SESSION['subscribe_error'] = [];
+			foreach ($mandatoryData as $property) {
+				$_SESSION['subscribe_error'][$property] = $_POST[$property];
+			}
 			array_push($_SESSION['subscribe_error'], ...$missingData);
 			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 			exit;
@@ -50,7 +52,9 @@ class UserController extends AbstractController
 
 		$userExist = $this->userRepository->findOneBy(['email' => $_POST['email']]);
 		if ($userExist) {
-			$_SESSION['subscribe_error'] = [];
+			foreach ($mandatoryData as $property) {
+				$_SESSION['subscribe_error'][$property] = $_POST[$property];
+			}
 			array_push($_SESSION['subscribe_error'], 'email_already_used');
 			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 			exit;
