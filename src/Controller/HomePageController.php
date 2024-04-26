@@ -25,6 +25,6 @@ class HomePageController extends AbstractController
 		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
-		$this->renderPage($content);
+		$this->renderPage($content, 'RBAB Accueil');
 	}
 }
