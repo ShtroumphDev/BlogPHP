@@ -26,4 +26,11 @@ h4 {
 .cards-wrapper .article-cards .col .card .img-and-button img {
   max-width: 350px;
   height: auto;
+}
+.cards-wrapper .article-cards .col .card .card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: justify;
 }/*# sourceMappingURL=homeContent.css.map */

@@ -19,6 +19,7 @@
         </p>
       </div>
     </div>
+    <?php if (!empty($comments)) { ?>
     <div class="comments">
       <?php  foreach ($comments as $comment) { ?>
       <div class="comment">
@@ -27,12 +28,16 @@
           :
         </span>
         <p class="content">
-          <?= htmlspecialchars($comment->getContent()); ?></p>
+          <?= htmlspecialchars($comment->getContent()); ?>
+        </p>
         <p class="date">
-          <?= htmlspecialchars($comment->getCreatedAt()); ?></p>
+          <?= htmlspecialchars($comment->getCreatedAt()); ?>
+        </p>
       </div>
       <?php }
       ?>
     </div>
+    <?php } ?>
+
   </div>
 </main>
