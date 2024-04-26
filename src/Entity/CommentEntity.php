@@ -11,6 +11,7 @@ class CommentEntity extends Entity
 	private ?string $created_at;
 	private ?string $updated_at;
 	private string $content;
+	private string $state;
 	private int $user_id;
 	private int $post_id;
 
@@ -18,6 +19,7 @@ class CommentEntity extends Entity
 	{
 		$this->created_at =date('d-m-Y');
 		$this->updated_at =date('d-m-Y');
+		$this->state      ='pending';
 	}
 
 	public function getId(): ?int
@@ -57,6 +59,18 @@ class CommentEntity extends Entity
 	public function setContent(string $content)
 	{
 		$this->content = $content;
+
+		return $this;
+	}
+
+	public function getState(): ?string
+	{
+		return $this->state;
+	}
+
+	public function setState(string $state)
+	{
+		$this->state = $state;
 
 		return $this;
 	}

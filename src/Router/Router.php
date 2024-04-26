@@ -17,19 +17,19 @@ class Router
 		$this->method = $_SERVER['REQUEST_METHOD'];
 	}
 
-	public function get(string $path, $callable, $name = null)
+	public function get(string $path, $callable, $name = null, $protected = false, $role = null)
 	{
-		return $this->add($path, $callable, $name, 'GET');
+		return $this->add($path, $callable, $name, 'GET', $protected, $role);
 	}
 
-	public function post(string $path, $callable, $name = null)
+	public function post(string $path, $callable, $name = null, $protected = false, $role = null)
 	{
-		return $this->add($path, $callable, $name, 'POST');
+		return $this->add($path, $callable, $name, 'POST', $protected, $role);
 	}
 
-	private function add(string $path, $callable, $name, string $method)
+	private function add(string $path, $callable, $name, string $method, $protected, $role)
 	{
-		$route                   = new Route($path, $callable);
+		$route                   = new Route($path, $callable, $protected, $role);
 		$this->routes[$method][] = $route;
 		if (is_string($callable) && $name === null) {
 			$name = $callable;

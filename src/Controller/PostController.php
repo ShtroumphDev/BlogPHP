@@ -25,7 +25,7 @@ class PostController extends AbstractController
 	public function showOnePost(int $postId): void
 	{
 		$post            = $this->postRepository->find($postId);
-		$comments        = $this->commentRepository->findBy(['post_id' => $postId]);
+		$comments        = $this->commentRepository->findBy(['post_id' => $postId, 'state' => 'validated']);
 		$commentUserName =[];
 
 		foreach ($comments as $comment) {

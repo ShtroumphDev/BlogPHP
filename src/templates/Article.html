@@ -19,8 +19,8 @@
         </p>
       </div>
     </div>
+    <?php if (!empty($comments)) { ?>
     <div class="comments">
-      <?php if (!empty($comments)) { ?>
       <?php  foreach ($comments as $comment) { ?>
       <div class="comment">
         <span class="pseudo <?php if (isset($_SESSION['user']) && $comment->getUserId() === $_SESSION['user']->getId()) {
@@ -57,8 +57,7 @@
         </div>
         <button class="btn btn-primary add-comment" type="submit">enregistrer le commentaire</button>
       </form>
-      <?php } ?>
-
     </div>
+    <?php } ?>
   </div>
 </main>
