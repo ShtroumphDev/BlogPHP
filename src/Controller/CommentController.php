@@ -42,6 +42,7 @@ class CommentController extends AbstractController
 
 		$em->flush();
 
+		$_SESSION['comment_added'] = true;
 		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 		exit;
 	}

@@ -19,6 +19,11 @@
         </p>
       </div>
     </div>
+    <?php
+	  if (isset($_SESSION['comment_added']) && $_SESSION['comment_added'] === true) { ?>
+    <div class="comment_added"> commentaire envoyé, en attente de validation</div>
+    <?php	unset($_SESSION['comment_added']);
+	  } ?>
     <?php if (!empty($comments)) { ?>
     <div class="comments">
       <?php  foreach ($comments as $comment) { ?>
