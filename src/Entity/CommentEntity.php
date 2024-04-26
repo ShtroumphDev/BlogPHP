@@ -7,7 +7,7 @@ use App\Repository\CommentsRepository;
 
 class CommentEntity extends Entity
 {
-	private int $id;
+	private ?int $id = null;
 	private ?string $created_at;
 	private ?string $updated_at;
 	private string $content;
@@ -16,6 +16,8 @@ class CommentEntity extends Entity
 
 	public function __construct()
 	{
+		$this->created_at =date('d-m-Y');
+		$this->updated_at =date('d-m-Y');
 	}
 
 	public function getId(): ?int

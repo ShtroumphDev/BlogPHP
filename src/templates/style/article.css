@@ -37,17 +37,38 @@ main .article .comments {
   display: flex;
   flex-direction: column;
   padding: 1em;
-  margin: 0.5em;
   border: 1px solid black;
   border-radius: 15px;
 }
 main .article .comments .comment .pseudo {
   font-weight: bold;
+  padding: 4px;
+  margin-right: 1em;
 }
-main .article .comments .comment .content {
+main .article .comments .delete-comment {
+  display: inline;
+  position: relative;
+}
+main .article .comments .delete-comment:hover:after {
+  background: #c84141;
+  border-radius: 5px;
+  bottom: 35px;
+  color: whitesmoke;
+  content: attr(title);
+  left: 20%;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 98;
+  width: -moz-max-content;
+  width: max-content;
+}
+main .article .comments .content {
   margin: 0 !important;
 }
-main .article .comments .comment .date {
+main .article .comments .date {
   font-style: italic;
   font-size: smaller;
+}
+main .article .comments .isUserComment {
+  background-color: rgb(132, 202, 202);
 }/*# sourceMappingURL=article.css.map */

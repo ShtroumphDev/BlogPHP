@@ -41,23 +41,48 @@ main {
             display: flex;
             flex-direction: column;
             padding: 1em;
-            margin: 0.5em;
             border: 1px solid black;
             border-radius: 15px;
 
             .comment {
                 .pseudo {
                     font-weight: bold;
-                }
+                    padding: 4px;
+                    margin-right: 1em;
 
-                .content {
-                    margin: 0 !important;
                 }
+            }
 
-                .date {
-                    font-style: italic;
-                    font-size: smaller;
-                }
+            .delete-comment {
+                display: inline;
+                position: relative;
+
+            }
+
+            .delete-comment:hover:after {
+                background: #c84141;
+                border-radius: 5px;
+                bottom: 35px;
+                color: whitesmoke;
+                content: attr(title);
+                left: 20%;
+                padding: 5px 5px;
+                position: absolute;
+                z-index: 98;
+                width: max-content;
+            }
+
+            .content {
+                margin: 0 !important;
+            }
+
+            .date {
+                font-style: italic;
+                font-size: smaller;
+            }
+
+            .isUserComment {
+                background-color: rgb(132, 202, 202);
             }
         }
     }
