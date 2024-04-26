@@ -2,18 +2,17 @@
 
 namespace App\Entity;
 
-use DateTime;
 use App\Entity\Abstracts\Entity;
 use App\Repository\CommentsRepository;
 
 class CommentEntity extends Entity
 {
 	private int $id;
-	private string|DateTime $createAt;
-	private string|DateTime $updatedAt;
+	private ?string $created_at;
+	private ?string $updated_at;
 	private string $content;
-	private int $userId;
-	private int $postId;
+	private int $user_id;
+	private int $post_id;
 
 	public function __construct()
 	{
@@ -24,26 +23,26 @@ class CommentEntity extends Entity
 		return $this->id;
 	}
 
-	public function getCreateAt(): ?DateTime
+	public function getCreatedAt(): ?string
 	{
-		return $this->createAt;
+		return $this->created_at;
 	}
 
-	public function setCreateAt(string $createAt): self
+	public function setCreatedAt(string $created_at): self
 	{
-		$this->createAt = $createAt;
+		$this->created_at = $created_at;
 
 		return $this;
 	}
 
-	public function getUpdatedAt(): ?DateTime
+	public function getUpdatedAt(): ?string
 	{
-		return $this->updatedAt;
+		return $this->updated_at;
 	}
 
-	public function setUpdatedAt(string $updatedAt): self
+	public function setUpdatedAt(string $updated_at): self
 	{
-		$this->updatedAt = $updatedAt;
+		$this->updated_at = $updated_at;
 
 		return $this;
 	}
@@ -62,24 +61,24 @@ class CommentEntity extends Entity
 
 	public function getUserId(): ?int
 	{
-		return $this->userId;
+		return $this->user_id;
 	}
 
-	public function setUserId(int $userId): self
+	public function setUserId(int $user_id): self
 	{
-		$this->userId = $userId;
+		$this->user_id = $user_id;
 
 		return $this;
 	}
 
 	public function getPostId(): ?int
 	{
-		return $this->postId;
+		return $this->post_id;
 	}
 
-	public function setPostId(int $postId): self
+	public function setPostId(int $post_id): self
 	{
-		$this->postId = $postId;
+		$this->post_id = $post_id;
 
 		return $this;
 	}
