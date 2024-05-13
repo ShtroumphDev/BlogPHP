@@ -15,7 +15,7 @@ abstract class AbstractController
 		$this->categoryRepository = new CategoryRepository();
 	}
 
-	public function renderPage(string $content)
+	public function renderPage(string $content, $title = 'Rubrik a Brac')
 	{
 		$categories = $this->categoryRepository->findAll();
 
