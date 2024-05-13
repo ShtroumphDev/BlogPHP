@@ -29,10 +29,10 @@ $router->post('/posts/:id', function ($id) {
 });
 $router->post('/add-user', 'UserController#add');
 $router->post('/connexion', 'AuthenticationController#logIn');
-$router->get('/deconnexion', 'AuthenticationController#logOut');
 
-try {
-	$router->run();
-} catch (\Throwable $error) {
-	include_once './src/templates/Error404.html';
-}
+//? route protégées
+$router->get('/deconnexion', 'AuthenticationController#logOut', null, true, 'subscriber');
+$router->post('/ajouter-commentaire', 'CommentController#addComment', null, true, 'subscriber');
+$router->get('/retirer-commentaire/:id', 'CommentController#removeComment', null, true, 'subscriber');
+
+$router->run();

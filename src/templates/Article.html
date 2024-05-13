@@ -19,14 +19,26 @@
         </p>
       </div>
     </div>
+    <?php
+	  if (isset($_SESSION['comment_added']) && $_SESSION['comment_added'] === true) { ?>
+    <div class="comment_added"> commentaire envoyé, en attente de validation</div>
+    <?php	unset($_SESSION['comment_added']);
+	  } ?>
     <?php if (!empty($comments)) { ?>
     <div class="comments">
       <?php  foreach ($comments as $comment) { ?>
       <div class="comment">
-        <span class="pseudo">
+        <span class="pseudo <?php if (isset($_SESSION['user']) && $comment->getUserId() === $_SESSION['user']->getId()) {
+        	echo 'isUserComment';
+        }?>">
           <?= htmlspecialchars($commentUserName[$comment->getUserId()]); ?>
           :
         </span>
+        <?php if (isset($_SESSION['user']) && $comment->getUserId() === $_SESSION['user']->getId()) {?>
+        <a class="btn delete-comment"
+          href="/blogphp/retirer-commentaire/<?php echo $comment->getId(); ?>"
+          title="supprimer le commentaire"><i class="fa-solid fa-trash-can fa-lg" style="color: #c84141;"></i></a>
+        <?php }?>
         <p class="content">
           <?= htmlspecialchars($comment->getContent()); ?>
         </p>
@@ -36,8 +48,21 @@
       </div>
       <?php }
       ?>
+      <?php } ?>
+      <?php if (isset($_SESSION['user'])) { ?>
+      <form action="/blogphp/ajouter-commentaire" method="POST">
+        <div class="mb-3">
+          <input type="hidden" name="token"
+            value="<?= $_SESSION['token']?>" />
+          <input type="hidden" name="post_id"
+            value="<?= $postId?>" />
+          <label for="exampleFormControlTextarea1" class="form-label">Ajouter un commentaire</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="add_comment" rows="3"
+            minlength="2"></textarea>
+        </div>
+        <button class="btn btn-primary add-comment" type="submit">enregistrer le commentaire</button>
+      </form>
     </div>
     <?php } ?>
-
   </div>
 </main>
