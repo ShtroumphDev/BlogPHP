@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Router;
 
+use App\Constants;
 use Exception;
 
 class Route
@@ -14,7 +15,7 @@ class Route
 	private ?string $role;
 	private array $matches   = [];
 	private array $params    = [];
-	private array $roleOrder = ['subscriber' => 1, 'writter' => 2, 'admin' => 3, 'superAdmin' =>4];
+	private array $roleOrder = [Constants::SUBSCRIBER => 1, Constants::MODERATOR => 2, Constants::ADMIN => 3, Constants::SUPERADMIN => 4];
 
 	public function __construct(string $path, $callable, $protected, $role)
 	{

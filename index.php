@@ -2,6 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Constants;
 use App\Router\Router;
 use Dotenv\Dotenv;
 
@@ -15,7 +16,6 @@ $dotenv->load();
 
 $router = new Router($_GET['url']);
 $router->get('/', 'FrontOffice#HomePageController#index');
-$router->get('/administration', 'BackOffice#HomePageController#index');
 $router->get('/article/:id', 'FrontOffice#PostController#showOnePost');
 $router->get('/articles/tous-les-articles', 'FrontOffice#PostController#showAllPosts');
 $router->get('/articles/categorie-:id', 'FrontOffice#PostController#showAllPostsByCategory');
@@ -31,8 +31,9 @@ $router->post('/posts/:id', function ($id) {
 $router->post('/add-user', 'FrontOffice#UserController#add');
 $router->post('/connexion', 'FrontOffice#AuthenticationController#logIn');
 $router->get('/deconnexion', 'FrontOffice#AuthenticationController#logOut');
-$router->post('/ajouter-commentaire', 'FrontOffice#CommentController#addComment', null, true, 'subscriber');
-$router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeComment', null, true, 'subscriber');
+$router->post('/ajouter-commentaire', 'FrontOffice#CommentController#addComment', null, true, Constants::SUBSCRIBER);
+$router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeComment', null, true, Constants::SUBSCRIBER);
+$router->get('/administration', 'BackOffice#HomePageController#index', null, true, Constants::MODERATOR);
 
 try {
 	$router->run();
