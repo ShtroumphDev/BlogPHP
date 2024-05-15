@@ -14,25 +14,28 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $router = new Router($_GET['url']);
-$router->get('/', 'HomePageController#index');
-$router->get('/article/:id', 'PostController#showOnePost');
-$router->get('/articles/tous-les-articles', 'PostController#showAllPosts');
-$router->get('/articles/categorie-:id', 'PostController#showAllPostsByCategory');
+$router->get('/', 'FrontOffice#HomePageController#index');
+$router->get('/administration', 'BackOffice#HomePageController#index');
+$router->get('/article/:id', 'FrontOffice#PostController#showOnePost');
+$router->get('/articles/tous-les-articles', 'FrontOffice#PostController#showAllPosts');
+$router->get('/articles/categorie-:id', 'FrontOffice#PostController#showAllPostsByCategory');
 $router->get('/posts/:id-:slug', function ($id, $slug) use ($router) {
 	echo $router->url('post.show', ['id' => 1, 'slug' => 'salut-les-gens']);
 }, 'post.show')
 ->with('id', '[0-9]+')
 ->with('slug', '[a-z\-0-9]+');
-$router->get('/posts/:id', 'HomePageController#index');
+$router->get('/posts/:id', 'FrontOffice#HomePageController#index');
 $router->post('/posts/:id', function ($id) {
 	echo 'je poste larticle numero ID' . $id;
 });
-$router->post('/add-user', 'UserController#add');
-$router->post('/connexion', 'AuthenticationController#logIn');
+$router->post('/add-user', 'FrontOffice#UserController#add');
+$router->post('/connexion', 'FrontOffice#AuthenticationController#logIn');
+$router->get('/deconnexion', 'FrontOffice#AuthenticationController#logOut');
+$router->post('/ajouter-commentaire', 'FrontOffice#CommentController#addComment', null, true, 'subscriber');
+$router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeComment', null, true, 'subscriber');
 
-//? route protégées
-$router->get('/deconnexion', 'AuthenticationController#logOut', null, true, 'subscriber');
-$router->post('/ajouter-commentaire', 'CommentController#addComment', null, true, 'subscriber');
-$router->get('/retirer-commentaire/:id', 'CommentController#removeComment', null, true, 'subscriber');
-
-$router->run();
+try {
+	$router->run();
+} catch (\Throwable $error) {
+	include_once './src/templates/Error404.html';
+}

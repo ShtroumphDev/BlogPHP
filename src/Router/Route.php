@@ -60,11 +60,12 @@ class Route
 		}
 
 		if (is_string($this->callable)) {
-			$params     = explode('#', $this->callable);
-			$controller =  'App\\Controller\\' . $params[0];
-			$controller = new $controller();
+			$params         = explode('#', $this->callable);
+			$controllerPath =  'App\\Controller\\%s\\%s';
+			$controller     =  sprintf($controllerPath, $params[0], $params[1]);
+			$controller     = new $controller();
 
-			return call_user_func_array([$controller, $params[1]], $this->matches);
+			return call_user_func_array([$controller, $params[2]], $this->matches);
 		} else {
 			return call_user_func_array($this->callable, $this->matches);
 		}

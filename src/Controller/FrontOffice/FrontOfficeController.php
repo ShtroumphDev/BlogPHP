@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
+use App\Controller\GlobalController;
 use App\Repository\CategoryRepository;
 
-abstract class AbstractController
+abstract class FrontOfficeController extends GlobalController
 {
 	private readonly CategoryRepository $categoryRepository;
 
@@ -32,6 +33,10 @@ abstract class AbstractController
 		require_once 'src/Templates/Navigation.html';
 		$nav = ob_get_clean();
 
+		ob_start();
 		require_once 'src/Templates/MainContainer.html';
+		$page = ob_get_clean();
+
+		$this->RenderVue($page);
 	}
 }

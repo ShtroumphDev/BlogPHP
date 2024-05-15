@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Entity\EntityManager;
 use App\Entity\UserEntity;
 use App\Repository\UserRepository;
 use Exception;
 
-class UserController extends AbstractController
+class UserController extends FrontOfficeController
 {
 	private readonly UserRepository $userRepository;
 	private readonly AuthenticationController $authenticationController;

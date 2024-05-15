@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Repository\CategoryRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 
-class PostController extends AbstractController
+class PostController extends FrontOfficeController
 {
 	private readonly PostRepository $postRepository;
 	private readonly CommentsRepository $commentRepository;
