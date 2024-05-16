@@ -51,6 +51,6 @@ abstract class FrontOfficeController extends GlobalController
 		require_once 'src/Templates/MainContainer.html';
 		$page = ob_get_clean();
 
-		$this->RenderVue($page);
+		$this->RenderVue($page, $title);
 	}
 }

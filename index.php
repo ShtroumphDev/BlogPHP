@@ -34,6 +34,7 @@ $router->get('/deconnexion', 'FrontOffice#AuthenticationController#logOut');
 $router->post('/ajouter-commentaire', 'FrontOffice#CommentController#addComment', null, true, Constants::SUBSCRIBER);
 $router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeComment', null, true, Constants::SUBSCRIBER);
 $router->get('/administration', 'BackOffice#HomePageController#index', null, true, Constants::MODERATOR);
+$router->get('/administration/creer-article', 'BackOffice#PostController#addPost', null, true, Constants::ADMIN);
 
 try {
 	$router->run();

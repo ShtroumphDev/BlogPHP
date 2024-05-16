@@ -11,7 +11,7 @@ abstract class GlobalController
 {
 	private array $roleOrder = [Constants::SUBSCRIBER => 1, Constants::MODERATOR => 2, Constants::ADMIN => 3, Constants::SUPERADMIN => 4];
 
-	public function RenderVue($page)
+	public function RenderVue($page, $title)
 	{
 		require_once 'src/Templates/GlobalTemplate.html';
 	}
