@@ -36,6 +36,9 @@ $router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeCo
 $router->get('/administration', 'BackOffice#HomePageController#index', null, true, Constants::MODERATOR);
 $router->get('/administration/creer-article', 'BackOffice#PostController#createPost', null, true, Constants::ADMIN);
 $router->post('/administration/ajouter-article', 'BackOffice#PostController#addPost', null, true, Constants::ADMIN);
+$router->get('/administration/liste-article', 'BackOffice#PostController#showListPost', null, true, Constants::ADMIN);
+$router->get('/administration/modifier-article/:id', 'BackOffice#PostController#updatePost', null, true, Constants::ADMIN);
+$router->post('/administration/modifier-article', 'BackOffice#PostController#patchPost', null, true, Constants::ADMIN);
 
 try {
 	$router->run();
