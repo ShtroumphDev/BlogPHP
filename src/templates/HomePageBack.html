@@ -20,20 +20,21 @@
     <?php foreach ($pendingComments as $comment) { ?>
     <div class="comment-wrapper mb-3">
       <div class="comment-data">
-        <div class="comment-author"><span>Auteur</span> : <?= htmlspecialchars($commentUserNames[$comment->getUserId()]); ?></div>
+        <div class="comment-post"><span>Article</span> : <?= htmlspecialchars($commentUserNames['postTitle'][$comment->getPostId()]); ?></div>
+        <div class="comment-author"><span>Auteur</span> : <?= htmlspecialchars($commentUserNames['userName'][$comment->getUserId()]); ?></div>
         <div class="comment-content"><span> Contenu</span> : <?= htmlspecialchars($comment->getContent()); ?></div>
         <div class="comment-date"><span>Date</span> : <?= htmlspecialchars($comment->getCreatedAt()); ?></div>
       </div>
       <div class="comment-validation col-12 col-md-3">
         <a
           class="btn valid-comment"
-          href="/blogphp/retirer-commentaire/<?php echo $comment->getId(); ?>"
+          href="/blogphp/administration/valider-commentaire/<?php echo $comment->getId(); ?>"
           title="valider le commentaire"
           ><i class="fa-solid fa-check fa-lg"></i
         ></a>
         <a
           class="btn reject-comment"
-          href="/blogphp/retirer-commentaire/<?php echo $comment->getId(); ?>"
+          href="/blogphp/administration/rejeter-commentaire/<?php echo $comment->getId(); ?>"
           title="supprimer le commentaire"
           ><i class="fa-solid fa-trash-can fa-lg"></i
         ></a>

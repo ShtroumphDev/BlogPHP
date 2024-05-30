@@ -15,7 +15,7 @@
   font-weight: bold;
 }
 .home_page_back .comment-to-validate .comment-wrapper .comment-validation {
-  border-left: 2px solid;
+  border-left: 1px solid;
   display: flex;
 }
 .home_page_back .comment-to-validate .comment-wrapper .comment-validation a {

@@ -50,7 +50,6 @@ class CommentController extends FrontOfficeController
 	public function removeComment(int $commentId)
 	{
 		$comment = $this->commentRepository->find($commentId);
-		var_dump($comment);
 
 		$this->entityManager->removeFromDatabase($comment);
 		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);

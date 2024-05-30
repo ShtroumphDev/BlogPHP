@@ -3,6 +3,7 @@
 namespace App\Controller\BackOffice;
 
 use App\Repository\CommentsRepository;
+use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 
 class HomePageController extends BackOfficeController
@@ -11,14 +12,18 @@ class HomePageController extends BackOfficeController
 	{
 		$commentRepository = new CommentsRepository();
 		$userRepository    = new UserRepository();
+		$postRepository    = new PostRepository();
 		$pendingComments   = $commentRepository->findBy(['state'=> 'pending']);
 
 		$commentUserNames =[];
 
 		foreach ($pendingComments as $comment) {
-			$userId                    = $comment->getUserId();
-			$userName                  = $userRepository->find($userId)->getPseudo();
-			$commentUserNames[$userId] = $userName;
+			$userId                                 = $comment->getUserId();
+			$postId                                 = $comment->getPostId();
+			$userName                               = $userRepository->find($userId)->getPseudo();
+			$postTitle                              = $postRepository->find($postId)->getTitle();
+			$commentUserNames['userName'][$userId]  = $userName;
+			$commentUserNames['postTitle'][$postId] = $postTitle;
 		}
 
 		ob_start();
