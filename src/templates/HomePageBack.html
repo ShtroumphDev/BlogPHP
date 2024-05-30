@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/blogphp/src/templates/style/homePageBack.css" />
+
+<div class="home_page_back">
+  <?php if (isset($_SESSION['addArticle_succes']) && $_SESSION['addArticle_succes'] === true) { ?>
+  <p class="text-center m-2" style="background-color: greenyellow;">Article ajouté avec succés</p>
+  <?php } ?>
+
+</div>
+<?php unset($_SESSION['addArticle_succes']) ?>

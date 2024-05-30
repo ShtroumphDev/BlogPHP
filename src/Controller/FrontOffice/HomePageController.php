@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Repository\PostRepository;
 
-class HomePageController extends AbstractController
+class HomePageController extends FrontOfficeController
 {
 	private readonly PostRepository $postRepository;
 

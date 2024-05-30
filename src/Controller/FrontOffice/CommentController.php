@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Entity\CommentEntity;
 use App\Entity\EntityManager;
 use App\Repository\CommentsRepository;
 use Exception;
 
-class CommentController extends AbstractController
+class CommentController extends FrontOfficeController
 {
 	private readonly CommentsRepository $commentRepository;
 	private readonly EntityManager $entityManager;
