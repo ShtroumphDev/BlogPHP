@@ -34,6 +34,8 @@ $router->get('/deconnexion', 'FrontOffice#AuthenticationController#logOut');
 $router->post('/ajouter-commentaire', 'FrontOffice#CommentController#addComment', null, true, Constants::SUBSCRIBER);
 $router->get('/retirer-commentaire/:id', 'FrontOffice#CommentController#removeComment', null, true, Constants::SUBSCRIBER);
 $router->get('/administration', 'BackOffice#HomePageController#index', null, true, Constants::MODERATOR);
+$router->get('/administration/valider-commentaire/:id', 'BackOffice#CommentController#validateComment', null, true, Constants::MODERATOR);
+$router->get('/administration/rejeter-commentaire/:id', 'BackOffice#CommentController#rejectComment', null, true, Constants::MODERATOR);
 $router->get('/administration/creer-article', 'BackOffice#PostController#createPost', null, true, Constants::ADMIN);
 $router->post('/administration/ajouter-article', 'BackOffice#PostController#addPost', null, true, Constants::ADMIN);
 $router->get('/administration/liste-article', 'BackOffice#PostController#showListPost', null, true, Constants::ADMIN);
