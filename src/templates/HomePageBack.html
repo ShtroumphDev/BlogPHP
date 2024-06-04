@@ -17,6 +17,9 @@
         <a class="dropdown-item" href="/blogphp/administration/liste-article">Modifier un articles</a>
       </div>
       <h3 class="text-center mt-4">Gestion des commentaires</h3>
+      <?php if (count($pendingComments) === 0) { ?>
+      <div class="text-center"> Aucun commentaire en attente de validation</div>
+      <?php } ?>
       <?php foreach ($pendingComments as $comment) { ?>
       <div class="comment-wrapper mb-3">
         <div class="comment-data">
