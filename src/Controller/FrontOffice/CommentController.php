@@ -35,6 +35,10 @@ class CommentController extends FrontOfficeController
 			$newComment->setUserId($user->getId());
 			$newComment->setPostId((int) $_POST['post_id']);
 			$newComment->setContent($comment);
+		} else {
+			$_SESSION['empty_comment'] = true;
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
 
 		$em = new EntityManager();
