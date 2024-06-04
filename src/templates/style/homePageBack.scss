@@ -1,8 +1,27 @@
 .home_page_back {
 
 
-    .comment-to-validate {
+    .comment-and-post-management {
         margin: 10px;
+
+        .post-management {
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+
+            a {
+                width: fit-content;
+                padding: 10px;
+                border: 1px solid black;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: #4c5781;
+                    border-color: whitesmoke;
+                    color: whitesmoke;
+                }
+            }
+        }
 
         .comment-wrapper {
             display: flex;
