@@ -57,7 +57,8 @@ class PostController extends BackOfficeController
 		$newPost = new PostEntity();
 		$newPost->setTitle($_POST['title']);
 		$newPost->setChapo($_POST['chapo']);
-		$newPost->setCreatedAt(date('d-m-Y'));
+		$newPost->setCreatedAt(date('Y-m-d'));
+		$newPost->setUpdatedAt(date('Y-m-d'));
 		$newPost->setCategoryId((int) $_POST['category']);
 		$newPost->setUserId((int) $_POST['user']);
 		$newPost->setContent($_POST['content']);
@@ -136,6 +137,7 @@ class PostController extends BackOfficeController
 		$post->setCategoryId((int) $_POST['category']);
 		$post->setContent($_POST['content']);
 
+		$post->setUpdatedAt(date('Y-m-d'));
 		$post->setCreatedAt($post->getCreatedAt());
 		$post->setUserId($post->getUserId());
 
