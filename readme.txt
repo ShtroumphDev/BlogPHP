@@ -23,3 +23,4 @@ Administration :
 
 - si vous avez les droits administrateur vous pouvez accéder à la partie administration en cliquant sur le lien dans le pied de page
 - sur la page d'accueil de l'administation vous avez accès à la gestion des commentaires ainsi qu'à la création et modification des articles
+- vous pouvez revenir sur le site en cliquant sur le lien en bas de page
