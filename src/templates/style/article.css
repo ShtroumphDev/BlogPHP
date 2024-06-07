@@ -1,0 +1,82 @@
+main {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid rgb(48, 145, 201);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main h4 {
+  background-color: rgb(67, 143, 190);
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  padding: 10px !important;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+main .article {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main .article .main-content .article-img {
+  max-width: 400px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+main .article .main-content .article-text {
+  text-align: justify;
+}
+main .article .comment_added {
+  text-align: center;
+  background-color: #51e790;
+}
+main .article .empty_comment {
+  text-align: center;
+  background-color: #c84141;
+}
+main .article .comments {
+  min-width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+main .article .comments .comment .pseudo {
+  font-weight: bold;
+  padding: 4px;
+  margin-right: 1em;
+}
+main .article .comments .delete-comment {
+  display: inline;
+  position: relative;
+}
+main .article .comments .delete-comment:hover:after {
+  background: #c84141;
+  border-radius: 5px;
+  bottom: 35px;
+  color: whitesmoke;
+  content: attr(title);
+  left: 20%;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 98;
+  width: -moz-max-content;
+  width: max-content;
+}
+main .article .comments .content {
+  margin: 0 !important;
+}
+main .article .comments .date {
+  font-style: italic;
+  font-size: smaller;
+}
+main .article .comments .isUserComment {
+  background-color: rgb(132, 202, 202);
+}/*# sourceMappingURL=article.css.map */
